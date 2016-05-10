@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Configurações do Carrossel</title>
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
+	<script src="../../js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+</h:head>
+<h:body>
+	<p:growl id="messages" showDetail="true" life="10000"
+		showSummary="false" />
+
+
+	<h:form id="form">
+
+		<div class="panel panel-default"
+			style="width: 90%; margin: 30px auto 0 auto">
+			<div class="panel-heading"
+				style="font-size: 20px; text-transform: uppercase; font-weight: bold">
+				Configurações do Carrossel <a href="/rino" style="float: right"><img
+					src="../../images/red-home-icon.png" /></a>
+				<div style="clear: both"></div>
+			</div>
+			<div class="panel-body">
+
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<p:commandButton value="Nova Imagem"
+							style="margin-bottom:4px;font-size:14px;font-weight:bold"
+							action="#{carouselBean.newCarousel()}" ajax="true"
+							update="modalEdit" oncomplete="PF('modalEdit').show();" />
+
+						<p:commandButton value="Configurar"
+							style="float:right;margin-bottom:4px;font-size:14px;font-weight:bold"
+							action="#{carouselBean.editConfigCarousel()}" ajax="true"
+							update="modalConfig" oncomplete="PF('modalConfig').show();" />
+
+						<div style="clear: both"></div>
+					</div>
+
+					<div class="panel-body">
+
+
+						<div style="clear: both"></div>
+						<p:dataTable value="#{carouselBean.listCarousel()}" var="data"
+							emptyMessage="Nenhum registro encontrado" paginator="true"
+							rows="10"
+							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							currentPageReportTemplate="{endRecord} de {totalRecords}"
+							rowsPerPageTemplate="5,10,15" lazy="true">
+
+							<p:column headerText="Imagem">
+								<h:graphicImage url="#{'\\img\\'.concat(data.nomeImagem)}"
+									width="100" />
+							</p:column>
+
+							<p:column headerText="">
+								<p:commandButton value="Editar" style="font-size:12px"
+									action="#{carouselBean.editCarousel(data.codCarousel)}"
+									ajax="true" update="modalEdit"
+									oncomplete="PF('modalEdit').show();" />
+								<p:commandButton value="Excluir" style="font-size:12px"
+									action="#{carouselBean.deleteCarousel(data)}" ajax="true"
+									update="form messages" />
+							</p:column>
+						</p:dataTable>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+	<p:dialog header="Carrossel" widgetVar="modalEdit" id="modalEdit"
+		modal="true" style="min-width:800px">
+
+		<h:form id="formModalEdit" enctype="multipart/form-data">
+
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<h:outputLabel value="Upload Imagem" />
+				<p:fileUpload value="#{carouselBean.file}" mode="simple"
+					dragDropSupport="true" label="Selecione a imagem"
+					cancelLabel="Cancelar" multiple="false" uploadLabel="Upload"
+					update="messages formModalEdit" sizeLimit="99999999" fileLimit="3"
+					allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
+
+				<h:outputLabel />
+				<h:outputLabel />
+
+				<h:outputLabel />
+				<p:commandButton value="Salvar"
+					style="font-size:14px;font-weight:bold"
+					action="#{carouselBean.saveCarousel(carouselBean.carousel)}"
+					update="formModalEdit messages" ajax="false">
+
+				</p:commandButton>
+			</h:panelGrid>
+
+		</h:form>
+
+	</p:dialog>
+
+	<p:dialog header="Configurador" widgetVar="modalConfig"
+		id="modalConfig" modal="true" style="min-width:800px">
+
+		<h:form id="formModalConfig" enctype="multipart/form-data">
+
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<h:outputLabel value="Transição (em segundos)"
+					for="secondsTransition" />
+				<p:spinner id="secondsTransition" required="true"
+					requiredMessage="Campo 'Transição (em segundos)' é de preenchimento obrigatório"
+					value="#{carouselBean.configCarousel.secondsTransition}"
+					converterMessage="Somente números inteiros" min="0" max="60"
+					stepFactor="1" />
+
+				<h:outputLabel />
+				<h:outputLabel />
+
+				<h:outputLabel />
+				<p:commandButton value="Salvar"
+					style="font-size:14px;font-weight:bold"
+					action="#{carouselBean.saveConfigCarousel(carouselBean.configCarousel)}"
+					update="formModalConfig messages" ajax="false">
+				</p:commandButton>
+			</h:panelGrid>
+
+		</h:form>
+
+	</p:dialog>
+
+</h:body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>CONFIGURAÇÕES GERAIS</title>
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
+	<script src="../../js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+</h:head>
+<h:body>
+	<p:growl id="messages" showDetail="true" life="10000"
+		showSummary="false" />
+
+
+	<h:form id="form">
+		<div class="panel panel-default"
+			style="width: 90%; margin: 30px auto 0 auto">
+			<div class="panel-heading"
+				style="font-size: 20px; text-transform: uppercase; font-weight: bold">
+				CONFIGURAÇÕES GERAIS<a href="/rino" style="float: right"><img
+					src="../../images/red-home-icon.png" /></a>
+				<div style="clear: both"></div>
+			</div>
+			<div class="panel-body">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<p:commandButton value="NOVA CONFIGURAÇÃO"
+							action="#{configGeneralBean.newConfigGeneral()}" ajax="true"
+							update="modalEdit" oncomplete="PF('modalEdit').show();"
+							disabled="#{configGeneralBean.listConfigGeneral().size() == 1}"
+							style="float:left;margin-bottom:4px;font-size:14px;font-weight:bold" />
+						<div style="clear: both"></div>
+					</div>
+					<div class="panel-body">
+
+
+
+						<p:dataTable style="font-size:10px" value="#{configGeneralBean.listConfigGeneral()}"
+							var="data" emptyMessage="NENHUM REGISTRO ENCONTRADO"
+							paginator="true" rows="30"
+							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							currentPageReportTemplate="{endRecord} de {totalRecords}"
+							rowsPerPageTemplate="30,60,90" lazy="true">
+
+							<p:column headerText="PORTA SERIAL">
+								<h:outputText value="#{data.portaSerial}"></h:outputText>
+							</p:column>
+							
+							<p:column headerText="HOST (E-MAIL)">
+								<h:outputText value="#{data.emailHost}"></h:outputText>
+							</p:column>
+							
+							<p:column headerText="REMETENTE (E-MAIL)">
+								<h:outputText value="#{data.emailHost}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="">
+								<p:commandButton value="EDITAR" style="font-size:10px;font-weight:bold"
+									action="#{configGeneralBean.editConfigGeneral(data.codConfig)}"
+									ajax="true" update="modalEdit"
+									oncomplete="PF('modalEdit').show();" />
+								<p:commandButton value="EXCLUIR" style="font-size:10px;font-weight:bold"
+									action="#{configGeneralBean.deleteConfigGeneral(data)}"
+									ajax="true" update="form messages" />
+							</p:column>
+						</p:dataTable>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</h:form>
+
+	<p:dialog header="CONFIGURAÇÕES GERAIS" widgetVar="modalEdit" id="modalEdit"
+		modal="true" style="min-width:800px">
+
+		<h:form id="formModalEdit" enctype="multipart/form-data">
+			<div style="font-size:11px;width: 900px; height: 500px; overflow-y: scroll;">
+				<p:panel header="RXTX" style="margin:5px;text-transform:uppercase;">
+					<p:panel header="PORTA SERIAL"
+						style="margin:5px;text-transform:uppercase;">
+						<p:inputText id="portaSerial" required="true" style="width:100%"
+							requiredMessage="Campo 'Porta Serial' é de preenchimento obrigatório"
+							value="#{configGeneralBean.configGeneral.portaSerial}" />
+					</p:panel>
+
+				</p:panel>
+
+				<p:panel header="E-MAIL"
+					style="margin:5px;text-transform:uppercase;">
+					<p:panel header="HOST"
+						style="margin:5px;text-transform:uppercase;float:left;width:48%">
+						<p:inputText id="emailHost" required="true" style="width:100%"
+							requiredMessage="Campo 'Host' é de preenchimento obrigatório"
+							value="#{configGeneralBean.configGeneral.emailHost}" />
+					</p:panel>
+
+					<p:panel header="PORTA"
+						style="margin:5px;text-transform:uppercase;float:left;width:48%">
+						<p:inputText id="emailPort" required="true" style="width:100%"
+							requiredMessage="Campo 'Host' é de preenchimento obrigatório"
+							value="#{configGeneralBean.configGeneral.emailPort}" />
+					</p:panel>
+
+					<div style="clear: both"></div>
+
+					<p:panel header="E-MAIL REMETENTE"
+						style="margin:5px;text-transform:uppercase;float:left;width:48%">
+						<p:inputText id="emailSender" required="true" style="width:100%"
+							requiredMessage="Campo 'Host' é de preenchimento obrigatório"
+							value="#{configGeneralBean.configGeneral.emailSender}" />
+					</p:panel>
+
+					<p:panel header="SENHA DO E-MAIL"
+						style="margin:5px;text-transform:uppercase;float:left;width:48%">
+						<p:inputText id="emailPassword" required="true" style="width:100%"
+							requiredMessage="Campo 'Host' é de preenchimento obrigatório"
+							value="#{configGeneralBean.configGeneral.emailPassword}" />
+					</p:panel>
+
+					<div style="clear: both"></div>
+
+					<p:panel header="ASSUNTO"
+						style="margin:5px;text-transform:uppercase;">
+						<p:inputText id="emailSubject" required="true" style="width:100%"
+							requiredMessage="Campo 'Host' é de preenchimento obrigatório"
+							value="#{configGeneralBean.configGeneral.emailSubject}" />
+					</p:panel>
+
+					<p:panel header="CONTEÚDO E-MAIL"
+						style="margin:5px;text-transform:uppercase;">
+						<p:inputText id="emailBody" required="true" style="width:100%"
+							requiredMessage="Campo 'Host' é de preenchimento obrigatório"
+							value="#{configGeneralBean.configGeneral.emailBody}" />
+					</p:panel>
+
+				</p:panel>
+
+				<p:commandButton value="SALVAR"
+					style="font-size:18px;font-weight:bold"
+					action="#{configGeneralBean.saveConfigGeneral(configGeneralBean.configGeneral)}"
+					update="formModalEdit messages" ajax="false">
+				</p:commandButton>
+			</div>
+		</h:form>
+
+	</p:dialog>
+
+</h:body>
+</html>

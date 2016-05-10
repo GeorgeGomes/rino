@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Configurações do Facebook</title>
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
+	<script src="../../js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+</h:head>
+<h:body>
+	<p:growl id="messages" showDetail="true" life="10000"
+		showSummary="false" />
+
+
+	<h:form id="form">
+
+
+
+		<div class="panel panel-default"
+			style="width: 90%; margin: 30px auto 0 auto">
+			<div class="panel-heading"
+				style="font-size: 20px; text-transform: uppercase; font-weight: bold">
+				Configurações do Facebook <a href="/rino" style="float: right"><img
+					src="../../images/red-home-icon.png" /></a>
+				<div style="clear: both"></div>
+			</div>
+			<div class="panel-body">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<p:commandButton value="Novo Facebook"
+							action="#{facebookBean.newFacebook()}" ajax="true"
+							update="modalEdit" oncomplete="PF('modalEdit').show();"
+							disabled="#{facebookBean.listFacebook().size() == 1}"
+							style="float:left;margin-bottom:4px;font-size:14px;font-weight:bold" />
+
+
+						<div style="clear: both"></div>
+					</div>
+					<div class="panel-body">
+
+						<p:dataTable emptyMessage="Nenhum registro encontrado"
+							value="#{facebookBean.listFacebook()}" var="data"
+							paginator="true" rows="10"
+							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							currentPageReportTemplate="{endRecord} de {totalRecords}"
+							rowsPerPageTemplate="5,10,15" lazy="true" style="font-size:12px">
+
+							<p:column headerText="App Id">
+								<h:outputText value="#{data.appId}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="App Secret">
+								<h:outputText value="#{data.appSecret}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="Hashtag">
+								<h:outputText value="#{data.hashtag}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="String Led">
+								<h:outputText value="#{data.stringLed}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="String Flash">
+								<h:outputText value="#{data.stringFlash}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="Online">
+								<h:outputText value="#{data.online}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="Imagem Online">
+								<h:graphicImage url="#{'\\img\\'.concat(data.nomeImagemOnline)}"
+									width="50" />
+							</p:column>
+
+							<p:column headerText="Online">
+								<h:outputText value="#{data.mensagemOnline}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="Imagem Offline">
+								<h:graphicImage
+									url="#{'\\img\\'.concat(data.nomeImagemOffline)}" width="50" />
+							</p:column>
+
+							<p:column headerText="Offline">
+								<h:outputText value="#{data.mensagemOffline}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="Imagem Agradecimentos">
+								<h:graphicImage
+									url="#{'\\img\\'.concat(data.nomeImagemAgradecimento)}"
+									width="50" />
+							</p:column>
+							
+							<p:column headerText="Logout Facebook">
+								<h:outputText value="#{data.logoutFacebook}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="">
+								<p:commandButton value="Editar" style="font-size:12px"
+									action="#{facebookBean.editFacebook(data.codFacebook)}"
+									ajax="true" update="modalEdit"
+									oncomplete="PF('modalEdit').show();" />
+								<p:commandButton value="Excluir" style="font-size:12px"
+									action="#{facebookBean.deleteFacebook(data)}" ajax="true"
+									update="form messages" />
+
+							</p:column>
+						</p:dataTable>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+	<p:dialog header="Facebook" widgetVar="modalEdit" id="modalEdit"
+		modal="true" style="min-width:800px">
+
+		<h:form id="formModalEdit" enctype="multipart/form-data">
+			<p:message for="appId" display="tooltip" />
+			<p:message for="appSecret" display="tooltip" />
+			<p:message for="hashtag" display="tooltip" />
+
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<h:outputLabel value="App id" for="appId" />
+				<p:inputText id="appId" required="true"
+					requiredMessage="Campo 'App Id' é de preenchimento obrigatório"
+					value="#{facebookBean.facebook.appId}" />
+
+				<h:outputLabel value="App Secret" for="appSecret" />
+				<p:inputText id="appSecret" required="true"
+					requiredMessage="Campo 'App Secret' é de preenchimento obrigatório"
+					value="#{facebookBean.facebook.appSecret}" />
+
+				<h:outputLabel value="Hash tag" for="hashtag" />
+				<p:inputText id="hashtag" required="true"
+					requiredMessage="Campo 'hashtag' é de preenchimento obrigatório"
+					value="#{facebookBean.facebook.hashtag}" />
+
+				<h:outputLabel value="String led" for="stringLed" />
+				<p:inputText id="stringLed" required="true"
+					requiredMessage="Campo 'String led' é de preenchimento obrigatório"
+					value="#{facebookBean.facebook.stringLed}" />
+
+				<h:outputLabel value="String flash" for="stringFlash" />
+				<p:inputText id="stringFlash" required="true"
+					requiredMessage="Campo 'String flash' é de preenchimento obrigatório"
+					value="#{facebookBean.facebook.stringFlash}" />
+
+				<h:outputLabel value="Online" />
+				<p:selectOneRadio value="#{facebookBean.facebook.online}">
+					<f:selectItem itemLabel="SIM" itemValue="SIM" />
+					<f:selectItem itemLabel="NÃO" itemValue="NÃO" />
+				</p:selectOneRadio>
+				
+				<h:outputLabel value="Logout Facebook" />
+				<p:selectOneRadio value="#{facebookBean.facebook.logoutFacebook}">
+					<f:selectItem itemLabel="SIM" itemValue="SIM" />
+					<f:selectItem itemLabel="NÃO" itemValue="NÃO" />
+				</p:selectOneRadio>
+
+				<h:outputLabel value="Imagem Online" />
+				<p:fileUpload value="#{facebookBean.fileImagemOnline}" mode="simple"
+					dragDropSupport="true" label="Selecione a imagem"
+					cancelLabel="Cancelar" multiple="false" uploadLabel="Upload"
+					update="messages formModalEdit" sizeLimit="99999999" fileLimit="3"
+					allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
+
+				<h:outputLabel value="Mensagem Online" for="mensagemOnline" />
+				<p:inputText id="mensagemOnline" required="true"
+					requiredMessage="Campo 'Mensagem Online' é de preenchimento obrigatório"
+					value="#{facebookBean.facebook.mensagemOnline}" />
+
+				<h:outputLabel value="Imagem Offline" />
+				<p:fileUpload value="#{facebookBean.fileImagemOffline}"
+					mode="simple" dragDropSupport="true" label="Selecione a imagem"
+					cancelLabel="Cancelar" multiple="false" uploadLabel="Upload"
+					update="messages formModalEdit" sizeLimit="99999999" fileLimit="3"
+					allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
+
+				<h:outputLabel value="Mensagem Offline" for="mensagemOffline" />
+				<p:inputText id="mensagemOffline" required="true"
+					requiredMessage="Campo 'Mensagem Offline' é de preenchimento obrigatório"
+					value="#{facebookBean.facebook.mensagemOffline}" />
+
+				<h:outputLabel value="Imagem Agradecimento" />
+				<p:fileUpload value="#{facebookBean.fileImagemAgradecimento}"
+					mode="simple" dragDropSupport="true" label="Selecione a imagem"
+					cancelLabel="Cancelar" multiple="false" uploadLabel="Upload"
+					update="messages formModalEdit" sizeLimit="99999999" fileLimit="3"
+					allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
+
+				<h:outputLabel />
+				<h:outputLabel />
+
+				<h:outputLabel />
+				<p:commandButton value="Salvar"
+					style="font-size:14px;font-weight:bold"
+					action="#{facebookBean.saveFacebook(facebookBean.facebook)}"
+					update="formModalEdit messages" ajax="false">
+				</p:commandButton>
+			</h:panelGrid>
+
+		</h:form>
+
+	</p:dialog>
+
+</h:body>
+</html>

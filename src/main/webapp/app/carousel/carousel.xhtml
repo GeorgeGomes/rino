@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Carrossel</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
+	<script src="../../js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../../css/carousel.css" />
+	<style>
+	html,body{
+    margin:0;
+    height:100%;
+    overflow:hidden;
+}
+	.image{
+	z-index: -999;
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+	</style>
+</h:head>
+<h:body>
+
+		<div id="carousel" class="carousel slide" data-ride="carousel" data-pause="false"
+			data-interval="#{carouselBean.listConfigCarousel().get(0).secondsTransition * 1000}">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+
+				<ui:repeat var="data" value="#{carouselBean.listCarousel()}"
+					varStatus="status">
+					<li data-target="#carousel" data-slide-to="#{status.index}"
+						class="#{status.index == 0 ? 'active' : ''}"></li>
+				</ui:repeat>
+
+			</ol>
+
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner" role="listbox">
+				<ui:repeat var="data" value="#{carouselBean.listCarousel()}"
+					varStatus="status">
+					<div class="item #{status.index == 0 ? 'active' : ''}">
+						<h:graphicImage url="#{'\\img\\'.concat(data.nomeImagem)}" styleClass="image"/>
+					</div>
+				</ui:repeat>
+			</div>
+
+
+		</div>
+
+		<script>
+		$("body").click(function(){
+			
+			var type = "#{utilBean.getSessionObj('type')}";
+
+			if(type == "alone"){
+				window.location = "/rino/app/carousel/carousel.xhtml";
+			}else{
+				window.location = "/rino/app/sequence/sequence.xhtml";
+			}	
+		})
+	</script>
+
+</h:body>
+</html>

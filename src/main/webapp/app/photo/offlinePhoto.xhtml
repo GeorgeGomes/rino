@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+      <f:event listener="#{photoBean.editPhoto(param['file'])}"
+	type="preRenderView" />
+	
+<h:head>
+<title>Foto</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+		<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
+	<script src="../../js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+	
+	<script src="js/facebook.js"></script>
+	<style>
+body {
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+	background: url(/img/#{configPhotoBean.listConfigPhoto().get(0).nomeImagemOffline}) no-repeat center center fixed;
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+}
+.content-message{
+	text-align:center;
+	font-size:40px;
+	color:#5882FA;
+	 text-shadow: 2px 2px 10px #ffffff;
+	 font-weight:bold;
+	 width:95%;
+	 opacity:0.95;
+} 
+
+.button-success{
+	font-size:25px;
+	font-weight:bold;
+	border-radius:10px;
+	width:300px;
+	margin:10px;
+	padding:10px;
+}
+
+.button-not{
+	font-size:16px;
+	font-weight:bold;
+	border-radius:10px;
+	width:180px;
+	margin:10px;
+	padding:10px;
+	float:right;
+}
+
+</style>
+
+</h:head>
+<h:body>
+	<p:growl id="messages" showDetail="true" life="10000"
+		showSummary="false" />
+		
+<div id="content">
+	<div class="content-message well well-sm" style="margin:20px;padding:20px">
+			<h:outputText value="#{configPhotoBean.listConfigPhoto().get(0).mensagemOffline}" />
+		
+	<h:form>
+		<div id="container-button">
+			<p:inputText id="email" autocomplete="off" required="true" style="width:100%" placeholder="Digite seu e-mail!"
+							requiredMessage="Digite seu e-mail!"
+							validatorMessage="Digite um e-mail válido!"
+							value="#{photoBean.photo.email}" >
+							<f:validateRegex
+		pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+		
+		</p:inputText>
+							
+			<p:commandButton styleClass="button-success" value="Enviar" action="#{photoBean.saveEmail(param['file'])}" update="messages" ajax="false" />
+			<p:commandButton styleClass="button-not" value="Não, obrigado" action="#{photoBean.dontSaveEmail()}" immediate="true" />
+			
+			<div style="clear:both"></div>
+		</div>
+	</h:form>
+	
+	</div>
+	<div style="clear:both"></div>
+</div>
+<script>
+	$(window).ready(function(){
+		width = $(document).width();
+		height = $(document).height();
+
+		//$("#container-button").css("margin", (height * 0.5) + "px auto 0 auto");
+		//$("#container-button").css("margin", "0 auto");
+		$(".content-message").css("margin", (height * 0.4) + "px auto 0 auto");
+		$(".content-message").css("width", "98%");
+		$("#content").css("width", width);
+		$("#content").css("height", height);
+	})
+	</script>
+
+</h:body>
+</html>
