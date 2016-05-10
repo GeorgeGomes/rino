@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+
+<h:head>
+	<title>Painel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+	<style>
+body {
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+	background: url(/img/#{panelBean.listConfigPanel().get(0).nomeImagemEnd}) no-repeat center center fixed;
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+}
+</style>
+
+	<script>
+		var showPageCongrats = "#{panelBean.listConfigPanel().get(0).paginaAgradecimento}";
+		var type = "#{utilBean.getSessionObj('type')}";
+
+		if(showPageCongrats == "SIM"){
+			if(type == "alone"){
+				setTimeout(function(){
+					window.location = "/rino/app/panel/panel.xhtml";
+				}, #{panelBean.listConfigPanel().get(0).milisegundosEnd});
+			}else{
+				setTimeout(function(){
+					window.location = "/rino/app/sequence/sequence.xhtml";
+				}, #{panelBean.listConfigPanel().get(0).milisegundosEnd});
+			}
+		}else{
+			if(type == "alone"){
+				window.location = "/rino/app/panel/panel.xhtml";
+			}else{
+				window.location = "/rino/app/sequence/sequence.xhtml";
+			}
+		}
+	</script>
+
+
+</h:head>
+<h:body>
+
+
+
+</h:body>
+</html>

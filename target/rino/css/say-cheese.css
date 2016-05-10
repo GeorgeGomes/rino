@@ -1,0 +1,45 @@
+.say-cheese {
+  border-bottom: 1px solid #e8e8e8;
+  clear: both;
+}
+
+
+#action-buttons {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 5;
+  display: none;
+}
+
+#button-actions button {
+   cursor: pointer;
+}
+
+#say-cheese-container {
+  margin: 0 auto;
+  position:relative;
+}
+
+#say-cheese-container video {
+  border: 10px solid #f4f4f4;
+  box-shadow: 0px 0px 20px 10px #808080;
+  margin:50px auto 0 auto;
+  position:relative;
+  display:block;
+}
+
+#say-cheese-snapshots {
+
+}
+
+#say-cheese-snapshots img {
+	border: 10px solid #f4f4f4;
+  box-shadow: 0px 0px 20px 10px #808080;
+  margin:50px auto 0 auto;
+  position:relative;
+  display:block;
+  -ms-transform: rotate(-5deg); /* IE 9 */
+  -webkit-transform: rotate(-5deg); /* Chrome, Safari, Opera */
+  transform: rotate(-5deg);
+}

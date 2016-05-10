@@ -11,7 +11,7 @@
 		<project.build.wildfly.deployFolder>C:/developer/servers/wildfly-10.0.0.CR4/standalone/deployments</project.build.wildfly.deployFolder>
 		<project.build.tomcat.deployFolder>C:/developer/servers/apache-tomcat-8.0.28/webapps</project.build.tomcat.deployFolder>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		
+
 		<java.version>1.7</java.version>
 		<hibernate.version>5.1.0.Final</hibernate.version>
 		<hibernate.tools.version>5.0.0.CR1</hibernate.tools.version>
@@ -39,6 +39,7 @@
 		<io.version>2.4</io.version>
 		<lang.version>2.6</lang.version>
 		<rxtx.version>2.2pre2</rxtx.version>
+		<chrome.driver.version>2.53.0</chrome.driver.version>
 	</properties>
 
 	<dependencies>
@@ -128,6 +129,13 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-chrome-driver</artifactId>
+			<version>${chrome.driver.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<repositories>

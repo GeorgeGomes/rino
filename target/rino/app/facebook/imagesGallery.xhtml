@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Galeria de Fotos</title>
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
+	<script src="../../js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+</h:head>
+<h:body>
+	<p:growl id="messages" showDetail="true" life="10000"
+		showSummary="false" />
+
+	<h:form id="form">
+
+		<div class="panel panel-default"
+			style="width: 90%; margin: 30px auto 0 auto">
+			<div class="panel-heading"
+				style="font-size: 20px; text-transform: uppercase; font-weight: bold">
+				Galeria de Fotos <a href="/rino" style="float: right"><img
+					src="../../images/red-home-icon.png" /></a>
+				<div style="clear: both"></div>
+			</div>
+			<div class="panel-body">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+					</div>
+					<div class="panel-body">
+
+						<p:dataTable emptyMessage="Nenhum registro encontrado"
+							value="#{photoBean.listPhoto()}" var="data"
+							paginator="true" rows="10"
+							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							currentPageReportTemplate="{endRecord} de {totalRecords}"
+							rowsPerPageTemplate="5,10,15" lazy="true" style="font-size:12px">
+
+							<p:column headerText="Foto">
+							<h:graphicImage value="/images/dynamic/?file=#{data.nomeFoto}" width="100" />
+								<h:outputText value="#{data.nomeFoto}"></h:outputText>
+							</p:column>
+
+							<p:column headerText="">
+								<p:commandButton value="Ver" style="font-size:12px"
+									action="#{photoBean.editPhoto(data.codPhoto)}"
+									ajax="true" />
+								<p:commandButton value="Excluir" style="font-size:12px"
+									action="#{photoBean.deletePhoto(data)}" ajax="true"
+									update="form messages" />
+							</p:column>
+							
+						</p:dataTable>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+</h:body>
+</html>
