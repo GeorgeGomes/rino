@@ -1,6 +1,6 @@
 git chechout 
 git add . 
 git commmit -m "Commit" 
-git push -u origin master
+git push origin master
 
 
