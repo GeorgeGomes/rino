@@ -4,6 +4,7 @@
 	https://github.com/wildfly/wildfly/releases
 
 2. cd <WILDFLY_SOURCE_ROOT>  and run the "build" script.
+	if the proxy, then configure proxy in tools/maven/conf
 
 3. cd <WILDFLY_SOURCE_ROOT>/jsf/multi-jsf-installer and run: 
 	for mojarra:
@@ -29,7 +30,7 @@
 		[standalone@localhost:9999 /] deploy <local path to archive>/install-mojarra-1.2_15.cli
 	for myfaces:
 		[standalone@localhost:9999 /] deploy <local path to archive>/install-myfaces-2.2.9.cli
-		
+
 
 ## If you do not want JSF 1.2_15 to be the default implementation, add this to your web.xml in the JSF 1.2 application
 	for mojarra:
