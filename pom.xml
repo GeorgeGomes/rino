@@ -9,7 +9,9 @@
 
 	<properties>
 		<project.build.wildfly.deployFolder>C:/developer/servers/wildfly-10.0.0.CR4/standalone/deployments</project.build.wildfly.deployFolder>
+		<project.buil.wildfly.home>C:/developer/servers/wildfly-10.0.0.CR4</project.buil.wildfly.home>
 		<project.build.tomcat.deployFolder>C:/developer/servers/apache-tomcat-8.0.28/webapps</project.build.tomcat.deployFolder>
+		<project.buil.tomcat.home>C:/developer/servers/apache-tomcat-8.0.28</project.buil.tomcat.home>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<java.version>1.7</java.version>
@@ -44,6 +46,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>${mail.version}</version>
@@ -54,24 +62,9 @@
 			<version>${configuration.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>all-themes</artifactId>
-			<version>${primefaces.allThemes.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>${commons.codec.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${io.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
@@ -84,14 +77,60 @@
 			<version>${rxtx.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${io.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.equinox</groupId>
+			<artifactId>app</artifactId>
+			<version>${equinox.version}</version>
+		</dependency>
+
+		<!-- #PRIMEFACES -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>${primefaces.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>${primefaces.extension.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>${primefaces.allThemes.version}</version>
+		</dependency>
+
+		<!-- #JSF -->
+		<dependency>
+			<groupId>org.apache.myfaces.core</groupId>
+			<artifactId>myfaces-api</artifactId>
+			<version>${myfaces.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.myfaces.core</groupId>
+			<artifactId>myfaces-impl</artifactId>
+			<version>${myfaces.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.myfaces.tomahawk</groupId>
+			<artifactId>tomahawk20</artifactId>
+			<version>${myfaces.tomahawk.version}</version>
+		</dependency>
+
+		<!-- #PERSISTENCE -->
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.jdbc.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -109,20 +148,24 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>jsf-api</artifactId>
-			<version>2.1</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-tools</artifactId>
+			<version>${hibernate.tools.version}</version>
+		</dependency>
+
+		<!-- #LOG -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>${primefaces.version}</version>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${logging.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
-		</dependency>
+
+		<!-- #TEST -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -135,10 +178,29 @@
 			<version>${chrome.driver.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<repositories>
+		<repository>
+			<id>mulesoft</id>
+			<name>Mulesoft</name>
+			<url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>central-maven</id>
+			<name>Central Maven Repository</name>
+			<url>http://central.maven.org/maven2</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 		<repository>
 			<id>prime-repo</id>
 			<name>PrimeFaces Maven Repository</name>
@@ -202,6 +264,27 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.jboss.plugins</groupId>
+				<artifactId>wildfly-extension-maven-plugin</artifactId>
+				<version>0.7.0</version>
+				<configuration>
+					<moduleZip>${project.build.directory}/${project.build.finalName}-module.zip</moduleZip>
+					<jbossHome>${project.buil.wildfly.home}</jbossHome>
+					<modulesHome>modules/system/layers/base</modulesHome>
+					<serverConfig>standalone/configuration/standalone.xml</serverConfig>
+					<subsystem>${basedir}/src/main/scripts/standalone-subsystem.xml</subsystem>
+					<profiles>
+						<profile>default</profile>
+					</profiles>
+					<socketBinding>${basedir}/src/main/scripts/socket-binding.xml</socketBinding>
+					<socketBindingGroups>
+						<socketBindingGroup>standard-sockets</socketBindingGroup>
+					</socketBindingGroups>
+				</configuration>
+			</plugin>
+
 		</plugins>
 
 		<resources>

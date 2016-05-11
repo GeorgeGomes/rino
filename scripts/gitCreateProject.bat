@@ -1,3 +1,7 @@
+
+#ignore target folder
+git rm -r --cached target
+
 git init 
 git add . 
 git commmit -m "Commit" 

@@ -1,0 +1,50 @@
+##### Steps to add any new JSF implementation or version to WildFly #####
+
+1. Download the source for your target WildFly release.
+	https://github.com/wildfly/wildfly/releases
+
+2. cd <WILDFLY_SOURCE_ROOT>  and run the "build" script.
+
+3. cd <WILDFLY_SOURCE_ROOT>/jsf/multi-jsf-installer and run: 
+	for mojarra:
+		mvn -Djsf-version=1.2_15 -Pmojarra-1.2 clean assembly:single
+	for myfaces:
+		mvn -Djsf-version=2.2.9 -Pmyfaces-2.2.9 clean assembly:single
+		
+4. The final artifact in the target directory will be called install-mojarra-1.2_15.zip.  Rename it to install-mojarra-1.2_15.cli. 
+
+5. Start WildFly (On eclipse or not)
+
+6. cd to <JBOSS_HOME>/bin for the running server where you want to install the new JSF.
+	open CMD and execute jboss-cli.bat
+	
+7. execute the commands:
+	connect
+	[standalone@localhost:9999 /] deploy <local path to archive>/install-mojarra-1.2_15.cli 
+
+
+
+## If you want the default JSF implementation to be 1.2_15, invoke this command then restart WildFly.
+	for mojarra:
+		[standalone@localhost:9999 /] deploy <local path to archive>/install-mojarra-1.2_15.cli
+	for myfaces:
+		[standalone@localhost:9999 /] deploy <local path to archive>/install-myfaces-2.2.9.cli
+		
+
+## If you do not want JSF 1.2_15 to be the default implementation, add this to your web.xml in the JSF 1.2 application
+	for mojarra:
+		<context-param>
+			<param-name>org.jboss.jbossfaces.JSF_CONFIG_NAME</param-name>
+			<param-value>mojarra-1.2_15</param-value>
+		</context-param>
+	for myfaces:
+		<context-param>
+			<param-name>org.jboss.jbossfaces.JSF_CONFIG_NAME</param-name>
+			<param-value>myfaces-2.1.12</param-value>
+		</context-param>
+
+
+References:
+	https://developer.jboss.org/wiki/StepsToAddAnyNewJSFImplementationOrVersionToWildFly
+	https://developer.jboss.org/wiki/StepsToAddMyFacesSupportToWildFly
+
