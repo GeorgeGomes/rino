@@ -1,0 +1,17 @@
+1. Add to standalone.xml
+
+
+2. <server name="default-server">
+    <http-listener name="default" socket-binding="http"/>
+    <host name="default-host" alias="localhost">
+        <location name="/" handler="welcome-content"/>
+        <location name="/img" handler="images"/>
+    </host>
+</server>
+<handlers>
+    <file name="welcome-content" path="${jboss.home.dir}/welcome-content" directory-listing="true"/>
+    <file name="images" path="/var/images" directory-listing="true"/>
+</handlers>
+
+
+LINK: hhttp://stackoverflow.com/questions/22684037/how-to-configure-wildfly-to-serve-static-content-like-images

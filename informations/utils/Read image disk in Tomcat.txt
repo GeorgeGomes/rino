@@ -1,0 +1,27 @@
+1. Add a <context> to tomcat/conf/server.xml
+
+
+2. <Engine defaultHost="localhost" name="Catalina">
+      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster"/>
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
+      
+        <!-- ########## -->
+        <!-- ########## -->
+        <!-- ADD COMMAND BELOW -->
+        
+        <Context docBase="C:\Users\georgeg\Desktop\praizer" path="/praizer/images" useHttpOnly="true"/>
+		
+		<!-- ADD COMMAND ABOVE -->
+        <!-- ########## -->
+        <!-- ########## -->
+        
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
+
+      </Host>
+
+
+LINK: http://stackoverflow.com/questions/417658/how-to-config-tomcat-to-serve-images-from-an-external-folder-outside-webapps
