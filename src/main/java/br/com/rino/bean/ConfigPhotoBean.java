@@ -22,10 +22,7 @@ public class ConfigPhotoBean {
 	private ConfigPhoto configPhoto = new ConfigPhoto();
 	private ConfigPhotoDAO configPhotoDAO = new ConfigPhotoDAO();
 	private String image;
-	private UploadedFile fileImagemOnline;
-	private UploadedFile fileImagemOffline;
 	private UploadedFile fileImagemAgradecimento;
-	private UploadedFile file;
 
 	public String getImage() {
 		return image;
@@ -33,22 +30,6 @@ public class ConfigPhotoBean {
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-	public UploadedFile getFileImagemOnline() {
-		return fileImagemOnline;
-	}
-
-	public void setFileImagemOnline(UploadedFile fileImagemOnline) {
-		this.fileImagemOnline = fileImagemOnline;
-	}
-
-	public UploadedFile getFileImagemOffline() {
-		return fileImagemOffline;
-	}
-
-	public void setFileImagemOffline(UploadedFile fileImagemOffline) {
-		this.fileImagemOffline = fileImagemOffline;
 	}
 
 	public UploadedFile getFileImagemAgradecimento() {
@@ -89,32 +70,6 @@ public class ConfigPhotoBean {
 	public void saveConfigPhoto(ConfigPhoto configPhoto) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
-
-		if (!this.getFileImagemOnline().getFileName().isEmpty()) {
-			try {
-				String extension = this.getFileImagemOnline().getContentType().replace("image/", "");
-				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-
-				FileUtil.copyFile(fileName, this.getFileImagemOnline().getInputstream());
-
-				configPhoto.setNomeImagemOnline(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		if (!this.getFileImagemOffline().getFileName().isEmpty()) {
-			try {
-				String extension = this.getFileImagemOffline().getContentType().replace("image/", "");
-				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-
-				FileUtil.copyFile(fileName, this.getFileImagemOffline().getInputstream());
-
-				configPhoto.setNomeImagemOffline(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 
 		if (!this.getFileImagemAgradecimento().getFileName().isEmpty()) {
 			try {

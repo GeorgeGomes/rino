@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_conf_photo")
+@Table(name="tb_config_photo")
 public class ConfigPhoto implements Serializable {
 
 	/**
@@ -28,18 +28,6 @@ public class ConfigPhoto implements Serializable {
 	
 	@Column(name="app_secret")
 	private String appSecret;
-	
-	@Column(name="nome_imagem_online")
-	private String nomeImagemOnline;
-	
-	@Column(name="nome_imagem_offline")
-	private String nomeImagemOffline;
-	
-	@Column(name="mensagem_online")
-	private String mensagemOnline;
-	
-	@Column(name="mensagem_offline")
-	private String mensagemOffline;
 	
 	@Column(name="nome_imagem_agradecimento")
 	private String nomeImagemAgradecimento;
@@ -93,38 +81,6 @@ public class ConfigPhoto implements Serializable {
 
 	public void setAppSecret(String appSecret) {
 		this.appSecret = appSecret;
-	}
-
-	public String getNomeImagemOnline() {
-		return nomeImagemOnline;
-	}
-
-	public void setNomeImagemOnline(String nomeImagemOnline) {
-		this.nomeImagemOnline = nomeImagemOnline;
-	}
-
-	public String getNomeImagemOffline() {
-		return nomeImagemOffline;
-	}
-
-	public void setNomeImagemOffline(String nomeImagemOffline) {
-		this.nomeImagemOffline = nomeImagemOffline;
-	}
-
-	public String getMensagemOnline() {
-		return mensagemOnline;
-	}
-
-	public void setMensagemOnline(String mensagemOnline) {
-		this.mensagemOnline = mensagemOnline;
-	}
-
-	public String getMensagemOffline() {
-		return mensagemOffline;
-	}
-
-	public void setMensagemOffline(String mensagemOffline) {
-		this.mensagemOffline = mensagemOffline;
 	}
 
 	public String getNomeImagemAgradecimento() {

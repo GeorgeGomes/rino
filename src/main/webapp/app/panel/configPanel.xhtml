@@ -1,85 +1,58 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Configurações do Painel</title>
-	<h:outputScript library="primefaces" name="jquery/jquery.js"
-		target="head" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
 	<script src="../../js/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
 </h:head>
 <h:body>
-	<p:growl id="messages" showDetail="true" life="10000"
-		showSummary="false" />
+	<p:growl id="messages" showDetail="true" life="10000" showSummary="false" />
 
 
 	<h:form id="form">
-		<div class="panel panel-default"
-			style="width: 90%; margin: 30px auto 0 auto">
-			<div class="panel-heading"
-				style="font-size: 20px; text-transform: uppercase; font-weight: bold">
-				Configurações do Painel<a href="/rino" style="float: right"><img
-					src="../../images/red-home-icon.png" /></a>
+		<div class="panel panel-default" style="width: 90%; margin: 30px auto 0 auto">
+			<div class="panel-heading" style="font-size: 20px; text-transform: uppercase; font-weight: bold">
+				Configurações do Painel
+				<a href="/rino" style="float: right">
+					<img src="../../images/red-home-icon.png" />
+				</a>
 				<div style="clear: both"></div>
 			</div>
 			<div class="panel-body">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 
-						<p:commandButton value="Novo Painel"
-							style="float:left;margin-bottom:4px;font-size:14px;font-weight:bold"
-							action="#{panelBean.newPanel()}" ajax="true" update="modalEdit"
-							oncomplete="PF('modalEdit').show();"
-							disabled="#{panelBean.listPanel().size() == 5}" />
+						<p:commandButton value="Novo Painel" style="float:left;margin-bottom:4px;font-size:14px;font-weight:bold" action="#{panelBean.newPanel()}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" disabled="#{panelBean.listPanel().size() == 5}" />
 
 
-						<p:commandButton value="Configurar"
-							style="float:right;margin-bottom:4px;font-size:14px;font-weight:bold"
-							action="#{panelBean.editConfigPanel()}" ajax="true"
-							update="modalConfig" oncomplete="PF('modalConfig').show();" />
+						<p:commandButton value="Configurar" style="float:right;margin-bottom:4px;font-size:14px;font-weight:bold" action="#{panelBean.editConfigPanel()}" ajax="true" update="modalConfig" oncomplete="PF('modalConfig').show();" />
 						<div style="clear: both"></div>
 					</div>
 					<div class="panel-body">
 
 
 						<div style="clear: both"></div>
-						<p:dataTable value="#{panelBean.listPanel()}" var="data"
-							emptyMessage="Nenhum registro encontrado" paginator="true"
-							rows="10"
-							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-							currentPageReportTemplate="{endRecord} de {totalRecords}"
-							rowsPerPageTemplate="5,10,15" lazy="true">
+						<p:dataTable value="#{panelBean.listPanel()}" var="data" emptyMessage="Nenhum registro encontrado" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" currentPageReportTemplate="{endRecord} de {totalRecords}" rowsPerPageTemplate="5,10,15" lazy="true">
 							<p:column headerText="Nome">
 								<h:outputText value="#{data.descricaoPanel}"></h:outputText>
 							</p:column>
 
 							<p:column headerText="String">
 								<h:outputText value="#{data.string}"></h:outputText>
-								<p:commandButton value="Enviar Sinal"
-									style="font-size:12px;float:right"
-									action="#{rxtxBean.sendString(data.string)}" ajax="true"
-									update="messages"></p:commandButton>
+								<p:commandButton value="Enviar Sinal" style="font-size:12px;float:right" action="#{rxtxBean.sendString(data.string)}" ajax="true" update="messages"></p:commandButton>
 							</p:column>
 
 							<p:column headerText="Imagem">
-								<h:graphicImage url="#{'\\img\\'.concat(data.nomeImagem)}"
-									width="100" />
+								<h:graphicImage url="#{'\\img\\'.concat(data.nomeImagem)}" width="100" />
 							</p:column>
 
 							<p:column headerText="">
-								<p:commandButton value="Editar" style="font-size:12px"
-									action="#{panelBean.editPanel(data.codPanel)}" ajax="true"
-									update="modalEdit" oncomplete="PF('modalEdit').show();" />
-								<p:commandButton value="Excluir" style="font-size:12px"
-									action="#{panelBean.deletePanel(data)}" ajax="true"
-									update="form messages" />
+								<p:commandButton value="Editar" style="font-size:12px" action="#{panelBean.editPanel(data.codPanel)}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" />
+								<p:commandButton value="Excluir" style="font-size:12px" action="#{panelBean.deletePanel(data)}" ajax="true" update="form messages" />
 							</p:column>
 						</p:dataTable>
 					</div>
@@ -88,68 +61,51 @@
 		</div>
 	</h:form>
 
-	<p:dialog header="Painel" widgetVar="modalEdit" id="modalEdit"
-		modal="true" style="min-width:800px">
-
-		<h:form id="formModalEdit" enctype="multipart/form-data">
-			<p:message for="nome" display="tooltip" />
-			<p:message for="string" display="tooltip" />
 
 
+	<p:dialog header="Painel" widgetVar="modalEdit" id="modalEdit" modal="true" style="min-width:800px">
 
-			<p:panel header="Nome" style="margin:5px;text-transform:uppercase">
-				<p:inputText id="nome" required="true"
-					requiredMessage="Campo 'Nome' é de preenchimento obrigatório"
-					value="#{panelBean.panel.descricaoPanel}" />
-			</p:panel>
+	<h:form id="formModalEdit" enctype="multipart/form-data">
+		<p:message for="nome" display="tooltip" />
+		<p:message for="string" display="tooltip" />
 
-			<p:panel header="String" style="margin:5px;text-transform:uppercase">
-				<p:inputText id="string" required="true"
-					requiredMessage="Campo 'String' é de preenchimento obrigatório"
-					value="#{panelBean.panel.string}" />
-			</p:panel>
 
-			<p:panel header="Imagem" style="margin:5px;text-transform:uppercase">
-				<p:fileUpload value="#{panelBean.file}" mode="simple"
-					dragDropSupport="true" label="Selecione a imagem"
-					cancelLabel="Cancelar" multiple="false" uploadLabel="Upload"
-					update="messages formModalEdit" sizeLimit="99999999" fileLimit="3"
-					allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
 
-			</p:panel>
+		<p:panel header="Nome" style="margin:5px;text-transform:uppercase">
+			<p:inputText id="nome" required="true" requiredMessage="Campo 'Nome' é de preenchimento obrigatório" value="#{panelBean.panel.descricaoPanel}" />
+		</p:panel>
 
-			<p:commandButton value="Salvar" style="font-size:18px;font-weight:bold"
-				action="#{panelBean.savePanel(panelBean.panel)}"
-				update="formModalEdit messages" ajax="false">
-			</p:commandButton>
+		<p:panel header="String" style="margin:5px;text-transform:uppercase">
+			<p:inputText id="string" required="true" requiredMessage="Campo 'String' é de preenchimento obrigatório" value="#{panelBean.panel.string}" />
+		</p:panel>
 
-		</h:form>
+		<p:panel header="Imagem" style="margin:5px;text-transform:uppercase">
+			<p:fileUpload value="#{panelBean.file}" mode="simple" dragDropSupport="true" label="Selecione a imagem" cancelLabel="Cancelar" multiple="false" uploadLabel="Upload" update="messages formModalEdit" sizeLimit="99999999" fileLimit="3" allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
+
+		</p:panel>
+
+		<p:commandButton value="Salvar" style="font-size:18px;font-weight:bold" action="#{panelBean.savePanel(panelBean.panel)}" update="formModalEdit messages" ajax="true"/>
+		
+		<p:commandButton value="Salvar" style="font-size:18px;font-weight:bold" actionListener="#{panelBean.savePanel}" update="formModalEdit messages" ajax="true"/>
+		<p:commandButton action="#{panelBean.testButtonAction}" ajax="true"/>
+		<p:commandButton actionListener="#{panelBean.testButtonActionListener}" ajax="true"/>
+
+	</h:form>
 
 	</p:dialog>
 
-	<p:dialog header="CONFIGURADOR" widgetVar="modalConfig"
-		id="modalConfig" modal="true" style="min-width:800px">
+	<p:dialog header="CONFIGURADOR" widgetVar="modalConfig" id="modalConfig" modal="true" style="min-width:800px">
 
 		<h:form id="formModalConfig" enctype="multipart/form-data">
 
 
-			<p:panel header="Background do Painel"
-				style="margin:5px;text-transform:uppercase">
-				<h:graphicImage
-					url="#{'\\img\\'.concat(panelBean.configPanel.nomeImagemInit)}"
-					width="120" />
-				<p:fileUpload value="#{panelBean.fileConfigInit}" mode="simple"
-					dragDropSupport="true" label="Selecione a imagem"
-					cancelLabel="Cancelar" multiple="false" uploadLabel="Upload"
-					update="messages formModalEdit" sizeLimit="99999999" fileLimit="3"
-					allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
+			<p:panel header="Background do Painel" style="margin:5px;text-transform:uppercase">
+				<h:graphicImage alt="" url="#{'\\img\\'.concat(panelBean.configPanel.nomeImagemInit)}" width="120" />
+				<p:fileUpload value="#{panelBean.fileConfigInit}" mode="simple" dragDropSupport="true" label="Selecione a imagem" cancelLabel="Cancelar" multiple="false" uploadLabel="Upload" update="messages formModalEdit" sizeLimit="99999999" fileLimit="3" allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
 			</p:panel>
 
-			<p:panel header="Mostrar página de agradecimento"
-				style="margin:5px;text-transform:uppercase">
-				<p:selectOneMenu
-					value="#{panelBean.configPanel.paginaAgradecimento}"
-					required="true" style="width:80px">
+			<p:panel header="Mostrar página de agradecimento" style="margin:5px;text-transform:uppercase">
+				<p:selectOneMenu value="#{panelBean.configPanel.paginaAgradecimento}" required="true" style="width:80px">
 					<f:selectItem itemValue="" itemLabel="" />
 					<f:selectItem itemValue="SIM" itemLabel="SIM" />
 					<f:selectItem itemValue="NÃO" itemLabel="NÃO" />
@@ -157,34 +113,19 @@
 
 				<div style="clear: both"></div>
 
-				<p:panel header="Background do Agradecimento"
-					style="min-height:150px;float:left;width:46%;margin:2%;text-transform:uppercase">
-					<h:graphicImage
-						url="#{'\\img\\'.concat(panelBean.configPanel.nomeImagemEnd)}"
-						width="100" />
-					<p:fileUpload value="#{panelBean.fileConfigEnd}" mode="simple"
-						dragDropSupport="true" label="Selecione a imagem"
-						cancelLabel="Cancelar" multiple="false" uploadLabel="Upload"
-						update="messages formModalEdit" sizeLimit="99999999" fileLimit="3"
-						allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
+				<p:panel header="Background do Agradecimento" style="min-height:150px;float:left;width:46%;margin:2%;text-transform:uppercase">
+					<h:graphicImage alt="" url="#{'\\img\\'.concat(panelBean.configPanel.nomeImagemEnd)}" width="100" />
+					<p:fileUpload value="#{panelBean.fileConfigEnd}" mode="simple" dragDropSupport="true" label="Selecione a imagem" cancelLabel="Cancelar" multiple="false" uploadLabel="Upload" update="messages formModalEdit" sizeLimit="99999999" fileLimit="3" allowTypes="/(\.|\/)(gif|jpeg|png)$/" />
 				</p:panel>
 
-				<p:panel header="Tempo em Milisegundos de Agradecimento"
-					style="min-height:150px;float:left;width:46%;margin:2%;text-transform:uppercase">
-					<p:spinner id="segundosEnd" required="true"
-						requiredMessage="Campo 'Milisegundos de Agradecimento' é de preenchimento obrigatório"
-						converterMessage="Somente números inteiros"
-						value="#{panelBean.configPanel.milisegundosEnd}" min="1000" max="60000"
-						stepFactor="1" />
+				<p:panel header="Tempo em Milisegundos de Agradecimento" style="min-height:150px;float:left;width:46%;margin:2%;text-transform:uppercase">
+					<p:spinner id="segundosEnd" required="true" requiredMessage="Campo 'Milisegundos de Agradecimento' é de preenchimento obrigatório" converterMessage="Somente números inteiros" value="#{panelBean.configPanel.milisegundosEnd}" min="1000" max="60000" stepFactor="1" />
 				</p:panel>
 				<div style="clear: both"></div>
 
 			</p:panel>
 
-			<p:commandButton value="SALVAR"
-				style="font-size:18px;font-weight:bold"
-				action="#{panelBean.saveConfigPanel(panelBean.configPanel)}"
-				update="formModalEdit messages" ajax="false">
+			<p:commandButton value="SALVAR" style="font-size:18px;font-weight:bold" action="#{panelBean.saveConfigPanel(panelBean.configPanel)}" update="formModalEdit messages" ajax="false">
 			</p:commandButton>
 
 		</h:form>

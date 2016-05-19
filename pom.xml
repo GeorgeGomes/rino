@@ -28,7 +28,7 @@
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<spring.security.version>4.0.4.RELEASE</spring.security.version>
 		<prettyfaces.version>3.3.3</prettyfaces.version>
-		<servlet.version>2.5</servlet.version>
+		<servlet.version>3.0.1</servlet.version>
 		<velocity.version>1.7</velocity.version>
 		<mail.version>1.5.0-b01</mail.version>
 		<logging.version>1.2</logging.version>
@@ -47,7 +47,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
+			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
@@ -255,7 +255,7 @@
 						<configuration>
 							<tasks>
 								<copy file="target/${project.artifactId}.war"
-									tofile="${project.build.wildfly.deployFolder}/${project.artifactId}.war" />
+									tofile="${project.build.tomcat.deployFolder}/${project.artifactId}.war" />
 							</tasks>
 						</configuration>
 						<goals>

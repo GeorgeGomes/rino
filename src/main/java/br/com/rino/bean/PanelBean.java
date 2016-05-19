@@ -5,8 +5,9 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.primefaces.context.RequestContext;
@@ -19,17 +20,26 @@ import br.com.rino.entity.Panel;
 import br.com.rino.util.FileUtil;
 
 @ManagedBean(name = "panelBean")
-@SessionScoped
+@ViewScoped
 public class PanelBean {
 
 	private Panel panel = new Panel();
 	private ConfigPanel configPanel = new ConfigPanel();
-	private PanelDAO panelDAO = new PanelDAO();  
-	private ConfigPanelDAO configPanelDAO = new ConfigPanelDAO(); 
+	private PanelDAO panelDAO = new PanelDAO();
+	private ConfigPanelDAO configPanelDAO = new ConfigPanelDAO();
 	private UploadedFile file;
 	private UploadedFile fileConfigInit;
 	private UploadedFile fileConfigEnd;
-	
+
+	public String testButtonAction() {
+		System.out.println("testButtonAction invoked");
+		return "anotherPage.xhtml";
+	}
+
+	public void testButtonActionListener(ActionEvent event) {
+		System.out.println("testButtonActionListener invoked");
+	}
+
 	public UploadedFile getFileConfigInit() {
 		return fileConfigInit;
 	}
@@ -67,32 +77,33 @@ public class PanelBean {
 		panel.setCodPanel(0l);
 		this.setPanel(panel);
 	}
-	
+
 	public void editPanel(Long codPanel) {
 		this.setPanel(panelDAO.edit(codPanel));
 	}
-	
+
 	public void editConfigPanel() throws ConfigurationException {
-		if(configPanelDAO.getList() != null && configPanelDAO.getList().size() > 0){
+		if (configPanelDAO.getList() != null && configPanelDAO.getList().size() > 0) {
 			this.setConfigPanel(configPanelDAO.getList().get(0));
-		}else{
+		} else {
 			ConfigPanel ConfigPanel = new ConfigPanel();
 			ConfigPanel.setCodConfigPanel(0l);
 			this.setConfigPanel(ConfigPanel);
 		}
 	}
-	
+
 	public void deletePanel(Panel panel) {
 		panelDAO.delete(panel);
 		FacesContext context = FacesContext.getCurrentInstance();
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Registro deletado com sucesso!");
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+				"Registro deletado com sucesso!");
 		context.addMessage("messages", message);
 	}
-	
+
 	public void savePanel(Panel panel) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
-		
+
 		if (!file.getFileName().isEmpty()) {
 			try {
 				String extension = this.getFile().getContentType().replace("image/", "");
@@ -119,10 +130,40 @@ public class PanelBean {
 		request.update("form:dataTable");
 	}
 	
+	public void savePanel() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		RequestContext request = RequestContext.getCurrentInstance();
+
+		if (!file.getFileName().isEmpty()) {
+			try {
+				String extension = this.getFile().getContentType().replace("image/", "");
+				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
+
+				FileUtil.copyFile(fileName, this.getFile().getInputstream());
+
+				panel.setNomeImagem(fileName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (panel.getCodPanel() == 0) {
+			panelDAO.insert(panel);
+		} else {
+			panelDAO.update(panel);
+		}
+
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Salvo com sucesso!");
+		context.addMessage("messages", message);
+
+		request.execute("PF('modalEdit').hide();");
+		request.update("form:dataTable");
+	}
+
 	public void saveConfigPanel(ConfigPanel configPanel) throws ConfigurationException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
-		
+
 		if (!fileConfigInit.getFileName().isEmpty()) {
 			try {
 				String extension = this.getFileConfigInit().getContentType().replace("image/", "");
@@ -135,7 +176,7 @@ public class PanelBean {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (!fileConfigEnd.getFileName().isEmpty()) {
 			try {
 				String extension = this.getFileConfigEnd().getContentType().replace("image/", "");
@@ -148,8 +189,7 @@ public class PanelBean {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
 		if (configPanel.getCodConfigPanel() == 0) {
 			configPanelDAO.insert(configPanel);
 		} else {
@@ -166,7 +206,7 @@ public class PanelBean {
 	public List<Panel> listPanel() {
 		return panelDAO.getList();
 	}
-	
+
 	public List<ConfigPanel> listConfigPanel() {
 		return configPanelDAO.getList();
 	}

@@ -1,16 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Foto</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<h:outputScript library="primefaces" name="jquery/jquery.js"
-		target="head" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
 	<script src="../../js/bootstrap.min.js"></script>
 	<script src="../../js/facebook.js"></script>
 	<script src="../../js/say-cheese.js"></script>
@@ -89,77 +83,70 @@ video {
 
 </h:head>
 <h:body>
-
+	<div style="margin: 2px; background-color: #000000; color: #ffffff">
+		Tire uma foto sua!
+		<img src="../../images/icon-cam.png" width="40"/>
+	</div>
 	<h:form id="formImage">
 		<h:inputHidden id="image" value="#{photoBean.image}" />
-		<div style="display: none">
+		
+		<!-- ##################################### -->
+		<!-- ##### INIT - TEST WITHOUT WEBCAM ##### -->
+		<!-- ##################################### -->
+		<div style="display: block">
 			<img src="../../images/comolatti.jpg" width="200" id="comolatti" />
 			<canvas id="myCanvas"></canvas>
+			<button type="button" id="antes" onclick="testCap()">Cap</button>
+			<p:commandButton id="postfdaasd" value="enviar" action="#{photoBean.saveImage()}" ajax="false" />
+			<script>
+				 function testCap(){
+					   var c=document.getElementById("myCanvas");
+					    var ctx=c.getContext("2d");
+					    //alert(c.toDataURL('image/png'));
+					    var img=document.getElementById("comolatti");
+					    ctx.drawImage(img,100,100);
+					    //alert(c.toDataURL('image/png'));
+					    $("#formImage\\:image").val(c.toDataURL('image/jpeg'));
+					 }
+				</script>
 		</div>
+		<!-- ##################################### -->
+		<!-- ##### END - TEST WITHOUT WEBCAM ##### -->
+		<!-- ##################################### -->
 
 		<div id="container-general">
 			<div id="contagem"></div>
 			<img src="../../images/loading.gif" width="200" class="loading" />
-			<button type="button" id="antes" style="display: none"
-				onclick="teste()">antes</button>
-			<button type="button" id="take-snapshot"
-				class="btn btn-success button-take-snapshot">TIRAR FOTO</button>
+
+			<button type="button" id="take-snapshot" class="btn btn-success button-take-snapshot">TIRAR FOTO</button>
 			<div class="content-button">
-				<p:commandButton id="postfdaasd" style="display:none" styleClass=""
-					onclick="" value="enviar" action="#{photoBean.saveImage()}"
-					ajax="false" />
-				<p:commandButton id="postarFacebook" style="display:none"
-					styleClass="button-facebook" onclick="sendImage()"
-					value="GOSTEI DESSA!" action="#{photoBean.saveImage()}" />
-					
-				<p:commandButton id="tirarOutraFoto" style="display:none"
-					styleClass="button-facebook" onclick="tirarOutraFoto()"
-					value="TIRAR OUTRA FOTO" />
+				<p:commandButton id="postarFacebook" style="display:none" styleClass="button-facebook" onclick="sendImage()" value="GOSTEI DESSA!" action="#{photoBean.saveImage()}" />
+
+				<p:commandButton id="tirarOutraFoto" style="display:none" styleClass="button-facebook" onclick="tirarOutraFoto()" value="TIRAR OUTRA FOTO" />
 			</div>
 			<div id="say-cheese-container"></div>
 			<div id="say-cheese-snapshots" style="display: none"></div>
 		</div>
 
 	</h:form>
+	
+	<div style="width: 300px; position: absolute; bottom: 20px; right: 20px">
+			<button class="btn btn-default">Não obrigado</button>
+	</div>
+	
+	
 
-
-	<p:dialog header="Digite seu e-mail" widgetVar="modalEdit"
-		id="modalEdit" modal="true" style="min-width:800px" closable="false">
-
-
+	<p:dialog header="Digite seu e-mail" widgetVar="modalEdit" id="modalEdit" modal="true" style="min-width:800px" closable="false">
 		<h:form id="formModalEdit" enctype="multipart/form-data">
 			<div style="margin: 40px">
 				<p:message for="email" display="tooltip" />
-				<p:inputText id="email" required="true"
-					style="width:600px;height:60px;font-size:40px"
-					requiredMessage="Campo 'E-mail' é de preenchimento obrigatório"
-					value="#{configPhotoBean.configPhoto.appId}" />
+				<p:inputText id="email" required="true" style="width:600px;height:60px;font-size:40px" requiredMessage="Campo 'E-mail' é de preenchimento obrigatório" value="#{configPhotoBean.configPhoto.appId}" />
 			</div>
 		</h:form>
-
 	</p:dialog>
-
 
 	<script>
 
-	 function teste(){
-		   var c=document.getElementById("myCanvas");
-		    var ctx=c.getContext("2d");
-		    //alert(c.toDataURL('image/png'));
-		    var img=document.getElementById("comolatti");
-		    ctx.drawImage(img,100,100);
-		    //alert(c.toDataURL('image/png'));
-		    $("#formImage\\:image").val(c.toDataURL('image/jpeg'));
-		    
-		 }
-	 
-
-
-	 
-	 
-
-
-	 
 	 var widthPage = $(window).height() + 100;
     $(function() {
         console.log($(window).height());
@@ -225,18 +212,12 @@ video {
 		}
 		)
 
-
-$(window).ready(function(){
+	$(window).ready(function(){
 
 	$("#say-cheese-snapshots img").width(widthPage);
 	$("#container-general").width(widthPage);
-
-	
-	
-	
 })
 	
-
 </script>
 
 </h:body>

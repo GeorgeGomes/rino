@@ -1,4 +1,4 @@
-package br.com.rino.test;
+package com.seismaismais.selenium.chrome;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
