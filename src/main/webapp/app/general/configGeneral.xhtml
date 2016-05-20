@@ -1,16 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://xmlns.jcp.org/jsf/html" 
+xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+xmlns:f="http://xmlns.jcp.org/jsf/core" 
+xmlns:composite="http://xmlns.jcp.org/jsf/composite" 
+xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>CONFIGURAÇÕES GERAIS</title>
-	<h:outputScript library="primefaces" name="jquery/jquery.js"
-		target="head" />
 	<script src="../../js/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
@@ -18,7 +16,6 @@
 <h:body>
 	<p:growl id="messages" showDetail="true" life="10000"
 		showSummary="false" />
-
 
 	<h:form id="form">
 		<div class="panel panel-default"
@@ -42,9 +39,7 @@
 					</div>
 					<div class="panel-body">
 
-
-
-						<p:dataTable style="font-size:10px" value="#{configGeneralBean.listConfigGeneral()}"
+						<p:dataTable id="dataTable" style="font-size:10px" value="#{configGeneralBean.listConfigGeneral()}"
 							var="data" emptyMessage="NENHUM REGISTRO ENCONTRADO"
 							paginator="true" rows="30"
 							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
@@ -100,16 +95,18 @@
 					style="margin:5px;text-transform:uppercase;">
 					<p:panel header="HOST"
 						style="margin:5px;text-transform:uppercase;float:left;width:48%">
-						<p:inputText id="emailHost" required="true" style="width:100%" placeholder="ex: smtp.rinomachine.com.br"
+						<p:inputText id="emailHost" required="true" style="width:100%" 
 							requiredMessage="Campo 'Host' é de preenchimento obrigatório"
 							value="#{configGeneralBean.configGeneral.emailHost}" />
+							<span style="font-size:8px">ex: smtp.rinomachine.com.br</span>
 					</p:panel>
 
 					<p:panel header="PORTA"
 						style="margin:5px;text-transform:uppercase;float:left;width:48%">
-						<p:inputText id="emailPort" required="true" style="width:100%" placeholder="ex: 465"
+						<p:inputText id="emailPort" required="true" style="width:100%"
 							requiredMessage="Campo 'Host' é de preenchimento obrigatório"
 							value="#{configGeneralBean.configGeneral.emailPort}" />
+							<span style="font-size:8px">ex: 465</span>
 					</p:panel>
 
 					<div style="clear: both"></div>
@@ -149,7 +146,7 @@
 				<p:commandButton value="SALVAR"
 					style="font-size:18px;font-weight:bold"
 					action="#{configGeneralBean.saveConfigGeneral(configGeneralBean.configGeneral)}"
-					update="formModalEdit messages" ajax="false">
+					update="formModalEdit messages" ajax="true">
 				</p:commandButton>
 			</div>
 		</h:form>

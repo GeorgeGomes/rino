@@ -16,6 +16,21 @@
 	</context-param>
 
 	<context-param>
+		<param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
+		<param-value>1048576</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>facelets.BUFFER_SIZE</param-name>
+		<param-value>1048576</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.RESOURCE_BUFFER_SIZE</param-name>
+		<param-value>1048576</param-value>
+	</context-param>
+
+	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>

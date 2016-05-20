@@ -12,15 +12,18 @@ public class ChromeDriverIntegrationTest {
 	  
 		ChromeOptions options = new ChromeOptions();
 		options.setBinary("/Users/george.gomes/AppData/Local/Google/Chrome/Application/chrome.exe");
-		options.addArguments("--user-data-dir=userdir");
-		System.setProperty("webdriver.chrome.driver", "/rino/chromedriver.exe"); 
+		//options.addArguments("--user-data-dir=Default");
+		
+		System.setProperty("webdriver.chrome.driver", "/rino/chromedriver.exe");
+		
 		
 		WebDriver driver = new ChromeDriver(options);
-		
+		driver.navigate().to("https://github.com/");
 		//Dimension windowMinSize = new Dimension(0,0);
 		//driver.manage().window().setSize(windowMinSize);
 		
-		driver.manage().deleteAllCookies();
+		//driver.manage().deleteAllCookies();
+		
 		
 	  //driver.get("http://www.google.com/xhtml");
 	  //driver.manage().deleteAllCookies();
@@ -29,7 +32,9 @@ public class ChromeDriverIntegrationTest {
 	  //searchBox.sendKeys("ChromeDriver");
 	  //searchBox.submit();
 	  //Thread.sleep(5000);  // Let the user actually see something!
-		driver.quit();
+		
+		
+		//driver.quit();
 	}
 
 }
