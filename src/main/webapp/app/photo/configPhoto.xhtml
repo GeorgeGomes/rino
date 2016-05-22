@@ -1,6 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:composite="http://xmlns.jcp.org/jsf/composite" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 <h:head>
 	<title>CONFIGURAÇÕES DA FOTO</title>
@@ -9,14 +15,16 @@
 	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
 </h:head>
 <h:body>
-	<p:growl id="messages" showDetail="true" life="10000" showSummary="false" />
+	<p:growl id="messages" showDetail="true" life="10000"
+		showSummary="false" />
 
-	<h:form id="form">
-		<div class="panel panel-default" style="width: 90%; margin: 30px auto 0 auto">
-			<div class="panel-heading" style="font-size: 20px; text-transform: uppercase; font-weight: bold">
-				CONFIGURAÇÕES DA FOTO
-				<a href="/rino" style="float: right">
-					<img src="../../images/red-home-icon.png" />
+	<h:form id="form23">
+		<div class="panel panel-default"
+			style="width: 90%; margin: 30px auto 0 auto">
+			<div class="panel-heading"
+				style="font-size: 20px; text-transform: uppercase; font-weight: bold">
+				CONFIGURAÇÕES DA FOTO <a href="/rino" style="float: right"> <img
+					src="../../images/red-home-icon.png" />
 				</a>
 				<div style="clear: both"></div>
 			</div>
@@ -24,14 +32,29 @@
 
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<p:commandButton value="NOVA CONFIGURAÇÃO" action="#{configPhotoBean.newConfigPhoto()}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" disabled="#{configPhotoBean.listConfigPhoto().size() == 1}" style="float:left;margin-bottom:4px;font-size:14px;font-weight:bold" />
+						<!-- 						<p:commandButton value="NOVA CONFIGURAÇÃO" -->
+						<!-- 							action="#{configPhotoBean.newConfigPhoto()}" ajax="true" -->
+						<!-- 							update="modalEdit" oncomplete="PF('modalEdit').show();" -->
+						<!-- 							disabled="#{configPhotoBean.listConfigPhoto().size() == 1}" -->
+						<!-- 							style="float:left;margin-bottom:4px;font-size:14px;font-weight:bold" /> -->
 
+						<p:commandButton value="NOVA CONFIGURAÇÃO"
+							action="#{configPhotoBean.newConfigPhoto()}" ajax="true"
+							update="formModalEdit"
+							disabled="#{configPhotoBean.listConfigPhoto().size() == 1}"
+							style="float:left;margin-bottom:4px;font-size:14px;font-weight:bold" />
 
 						<div style="clear: both"></div>
 					</div>
 					<div class="panel-body">
 
-						<p:dataTable id="dataTable" emptyMessage="NENHUM REGISTRO ENCONTRADO" value="#{configPhotoBean.listConfigPhoto()}" var="data" paginator="true" rows="30" style="font-size:10px" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" currentPageReportTemplate="{endRecord} de {totalRecords}" rowsPerPageTemplate="30,60,90" lazy="true">
+						<p:dataTable id="dataTable"
+							emptyMessage="NENHUM REGISTRO ENCONTRADO"
+							value="#{configPhotoBean.listConfigPhoto()}" var="data"
+							paginator="true" rows="30" style="font-size:10px"
+							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							currentPageReportTemplate="{endRecord} de {totalRecords}"
+							rowsPerPageTemplate="30,60,90" lazy="true">
 
 							<p:column headerText="STRING LED">
 								<h:outputText value="#{data.stringLed}"></h:outputText>
@@ -46,7 +69,9 @@
 							</p:column>
 
 							<p:column headerText="IMG AGRADECIMENTO">
-								<h:graphicImage url="#{'\\img\\'.concat(data.nomeImagemAgradecimento)}" width="50" />
+								<h:graphicImage
+									url="#{'\\img\\'.concat(data.nomeImagemAgradecimento)}"
+									width="50" />
 							</p:column>
 
 							<p:column headerText="TEMPO AGRADECIMENTO">
@@ -54,8 +79,16 @@
 							</p:column>
 
 							<p:column headerText="">
-								<p:commandButton value="EDITAR" style="font-size:12px" action="#{configPhotoBean.editConfigPhoto(data.codConfigPhoto)}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" />
-								<p:commandButton value="EXCLUIR" style="font-size:12px" action="#{configPhotoBean.deleteConfigPhoto(data)}" ajax="true" update="form messages" />
+								<!-- 								<p:commandButton value="EDITAR" style="font-size:12px" -->
+								<!-- 									action="#{configPhotoBean.editConfigPhoto(data.codConfigPhoto)}" -->
+								<!-- 									ajax="true" update="modalEdit" -->
+								<!-- 									oncomplete="PF('modalEdit').show();" /> -->
+								<p:commandButton value="EDITAR" style="font-size:12px"
+									action="#{configPhotoBean.editConfigPhoto(data.codConfigPhoto)}"
+									ajax="true" update="formModalEdit" />
+								<p:commandButton value="EXCLUIR" style="font-size:12px"
+									action="#{configPhotoBean.deleteConfigPhoto(data)}" ajax="true"
+									update="form messages" />
 
 							</p:column>
 						</p:dataTable>
@@ -65,75 +98,125 @@
 		</div>
 	</h:form>
 
-	<p:dialog header="IMAGEM" widgetVar="imgEdit" id="imgEdit" modal="true" style="min-width:900px">
-		<h:form>
-			<p:panel header="IMAGEM AGRADECIMENTO" style="margin:5px;text-transform:uppercase">
-				<p:fileUpload fileUploadListener="#{configPhotoBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages1" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
-				<p:growl id="messages1" showDetail="true" />
+	<h:form id="form" enctype="multipart/form-data">
+
+		<h:outputLabel value="Arquivo" for="arquivo" />
+		<h:inputFile id="arquivo" value="#{configPhotoBean.arquivo}"
+			required="true" label="Arquivo" />
+
+		<h:commandButton value="Importar" action="#{configPhotoBean.importa}">
+			<f:ajax execute="@form" render="@all" />
+		</h:commandButton>
+
+
+	</h:form>
+
+
+
+
+
+
+	<!-- 	<p:dialog header="CONFIGURAÇÃO" widgetVar="modalEdit" id="modalEdit" -->
+	<!-- 		modal="true" style="min-width:900px"> -->
+
+	<h:form id="formModalEdit" enctype="multipart/form-data">
+		<div
+			style="font-size: 11px; width: 900px; height: 500px; overflow-y: scroll;">
+			<p:panel header="EVENTO" style="margin:5px;text-transform:uppercase;">
+				<p:panel header="Nome do Evento"
+					style="margin:5px;text-transform:uppercase;float:left;width:48%">
+					<p:inputText id="nomeEvento" required="true" style="width:100%"
+						requiredMessage="Campo 'Nome Evento' é de preenchimento obrigatório"
+						value="#{configPhotoBean.configPhoto.nomeEvento}" />
+				</p:panel>
+
+				<p:panel header="DESCRIÇÃO DO EVENTO"
+					style="margin:5px;text-transform:uppercase;float:left;width:48%">
+					<p:inputText id="descricaoEvento" required="true"
+						style="width:100%"
+						requiredMessage="Campo 'Descrição do Evento' é de preenchimento obrigatório"
+						value="#{configPhotoBean.configPhoto.descricaoEvento}" />
+				</p:panel>
+				<div style="clear: both"></div>
 			</p:panel>
-		</h:form>
-	</p:dialog>
 
-	<p:dialog header="CONFIGURAÇÃO" widgetVar="modalEdit" id="modalEdit" modal="true" style="min-width:900px">
-
-		<h:form id="formModalEdit" enctype="multipart/form-data">
-			<div style="font-size: 11px; width: 900px; height: 500px; overflow-y: scroll;">
-				<p:panel header="EVENTO" style="margin:5px;text-transform:uppercase;">
-					<p:panel header="Nome do Evento" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-						<p:inputText id="nomeEvento" required="true" style="width:100%" requiredMessage="Campo 'Nome Evento' é de preenchimento obrigatório" value="#{configPhotoBean.configPhoto.nomeEvento}" />
-					</p:panel>
-
-					<p:panel header="DESCRIÇÃO DO EVENTO" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-						<p:inputText id="descricaoEvento" required="true" style="width:100%" requiredMessage="Campo 'Descrição do Evento' é de preenchimento obrigatório" value="#{configPhotoBean.configPhoto.descricaoEvento}" />
-					</p:panel>
-					<div style="clear: both"></div>
+			<p:panel header="RXTX" style="margin:5px;text-transform:uppercase;">
+				<p:panel header="String LED"
+					style="margin:5px;text-transform:uppercase;float:left;width:48%">
+					<p:inputText id="stringLed" required="true" style="width:100%"
+						placeholder="ex: FLASHFRACO"
+						requiredMessage="Campo 'String led' é de preenchimento obrigatório"
+						value="#{configPhotoBean.configPhoto.stringLed}" />
 				</p:panel>
 
-				<p:panel header="RXTX" style="margin:5px;text-transform:uppercase;">
-					<p:panel header="String LED" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-						<p:inputText id="stringLed" required="true" style="width:100%" placeholder="ex: FLASHFRACO" requiredMessage="Campo 'String led' é de preenchimento obrigatório" value="#{configPhotoBean.configPhoto.stringLed}" />
-					</p:panel>
+				<p:panel header="STRING FLASH"
+					style="margin:5px;text-transform:uppercase;float:left;width:48%">
+					<p:inputText id="stringFlash" required="true" style="width:100%"
+						placeholder="ex: FLASHFORTE"
+						requiredMessage="Campo 'String flash' é de preenchimento obrigatório"
+						value="#{configPhotoBean.configPhoto.stringFlash}" />
+				</p:panel>
+				<div style="clear: both"></div>
+			</p:panel>
 
-					<p:panel header="STRING FLASH" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-						<p:inputText id="stringFlash" required="true" style="width:100%" placeholder="ex: FLASHFORTE" requiredMessage="Campo 'String flash' é de preenchimento obrigatório" value="#{configPhotoBean.configPhoto.stringFlash}" />
-					</p:panel>
-					<div style="clear: both"></div>
+			<p:panel header="ONLINE/OFFLINE"
+				style="margin:5px;text-transform:uppercase;">
+				<p:selectOneRadio value="#{configPhotoBean.configPhoto.online}">
+					<f:selectItem itemLabel="ONLINE" itemValue="ONLINE" />
+					<f:selectItem itemLabel="OFFLINE" itemValue="OFFLINE" />
+				</p:selectOneRadio>
+			</p:panel>
+
+			<p:panel header="AGRADECIMENTO"
+				style="margin:5px;text-transform:uppercase;">
+				<p:panel header="IMAGEM AGRADECIMENTO"
+					style="margin:5px;text-transform:uppercase">
+					<!-- 						<t:inputFileUpload value="#{configPhotoBean.fileImagemAgradecimento}" required="false" /> -->
 				</p:panel>
 
-				<p:panel header="ONLINE/OFFLINE" style="margin:5px;text-transform:uppercase;">
-					<p:selectOneRadio value="#{configPhotoBean.configPhoto.online}">
-						<f:selectItem itemLabel="ONLINE" itemValue="ONLINE" />
-						<f:selectItem itemLabel="OFFLINE" itemValue="OFFLINE" />
-					</p:selectOneRadio>
+				<p:panel header="TEMPO (MILISEGUNDOS)"
+					style="margin:5px;text-transform:uppercase">
+					<p:spinner id="segundosEnd" required="true"
+						requiredMessage="Campo 'Milisegundos de Agradecimento' é de preenchimento obrigatório"
+						converterMessage="Somente números inteiros"
+						value="#{configPhotoBean.configPhoto.milisegundosEnd}" min="1000"
+						max="60000" stepFactor="1" />
+				</p:panel>
+			</p:panel>
+			<p:panel header="GALERIA" style="margin:5px;text-transform:uppercase">
+				<p:panel header="LINK GALERIA ONLINE"
+					style="margin:5px;text-transform:uppercase;float:left;width:48%">
+					<p:inputText id="linkGallery" required="true" style="width:100%"
+						placeholder="ex: http://www.rinomachine.com.br/rino-gallery/servlet/transfer"
+						requiredMessage="Campo 'Link Galeria' é de preenchimento obrigatório"
+						value="#{configPhotoBean.configPhoto.linkGallery}" />
 				</p:panel>
 
-				<p:panel header="AGRADECIMENTO" style="margin:5px;text-transform:uppercase;">
-					<p:panel header="IMAGEM AGRADECIMENTO" style="margin:5px;text-transform:uppercase">
-						<p:commandButton immediate="true" value="INSERIR IMAGEM" style="font-size:12px" ajax="true" update="imgEdit" oncomplete="PF('imgEdit').show();" />
-					</p:panel>
+				<p:panel header="LINK TRANSFERÊNCIA ONLINE"
+					style="margin:5px;text-transform:uppercase;float:left;width:48%">
+					<p:inputText id="linkTransfer" required="true" style="width:100%"
+						placeholder="ex: http://www.rinomachine.com.br/rino-gallery/servlet/transfer"
+						requiredMessage="Campo 'Link Transferencia' é de preenchimento obrigatório"
+						value="#{configPhotoBean.configPhoto.linkTransfer}" />
 
-					<p:panel header="TEMPO (MILISEGUNDOS)" style="margin:5px;text-transform:uppercase">
-						<p:spinner id="segundosEnd" required="true" requiredMessage="Campo 'Milisegundos de Agradecimento' é de preenchimento obrigatório" converterMessage="Somente números inteiros" value="#{configPhotoBean.configPhoto.milisegundosEnd}" min="1000" max="60000" stepFactor="1" />
-					</p:panel>
 				</p:panel>
-				<p:panel header="GALERIA" style="margin:5px;text-transform:uppercase">
-					<p:panel header="LINK GALERIA ONLINE" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-						<p:inputText id="linkGallery" required="true" style="width:100%" placeholder="ex: http://www.rinomachine.com.br/rino-gallery/servlet/transfer" requiredMessage="Campo 'Link Galeria' é de preenchimento obrigatório" value="#{configPhotoBean.configPhoto.linkGallery}" />
-					</p:panel>
+				<div style="clear: both"></div>
+			</p:panel>
 
-					<p:panel header="LINK TRANSFERÊNCIA ONLINE" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-						<p:inputText id="linkTransfer" required="true" style="width:100%" placeholder="ex: http://www.rinomachine.com.br/rino-gallery/servlet/transfer" requiredMessage="Campo 'Link Transferencia' é de preenchimento obrigatório" value="#{configPhotoBean.configPhoto.linkTransfer}" />
+			<p:commandButton ajax="false" value="SALVAR"
+				style="font-size:18px;font-weight:bold"
+				action="#{configPhotoBean.saveConfigPhoto(configPhotoBean.configPhoto)}"
+				update="formModalEdit messages" />
 
-					</p:panel>
-					<div style="clear: both"></div>
-				</p:panel>
+			<h:commandButton value="SALVAR 1"
+				style="font-size:18px;font-weight:bold"
+				action="#{configPhotoBean.saveConfigPhoto(configPhotoBean.configPhoto)}"
+				update="formModalEdit messages" />
+		</div>
+	</h:form>
 
-				<p:commandButton ajax="true" value="SALVAR" style="font-size:18px;font-weight:bold" action="#{configPhotoBean.saveConfigPhoto(configPhotoBean.configPhoto)}" update="formModalEdit messages" />
-			</div>
-		</h:form>
-
-	</p:dialog>
+	<!-- 	</p:dialog> -->
 
 </h:body>
 </html>

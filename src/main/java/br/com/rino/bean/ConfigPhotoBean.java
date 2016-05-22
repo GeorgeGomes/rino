@@ -1,6 +1,8 @@
 package br.com.rino.bean;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -8,11 +10,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 
+import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.FileUploadEvent;
 
 import br.com.rino.dao.ConfigPhotoDAO;
 import br.com.rino.entity.ConfigPhoto;
+import br.com.rino.util.FileUtil;
 
 @ManagedBean(name = "configPhotoBean")
 @SessionScoped
@@ -21,8 +24,27 @@ public class ConfigPhotoBean {
 	private ConfigPhoto configPhoto = new ConfigPhoto();
 	private ConfigPhotoDAO configPhotoDAO = new ConfigPhotoDAO();
 	private String image;
-	private Part fileImagemAgradecimento;
+	private UploadedFile fileImagemAgradecimento;
 
+	private Part arquivo; 
+
+    public Part getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(Part arquivo) {
+		this.arquivo = arquivo;
+	}
+
+	public void importa() {
+        try {
+            String conteudo = new Scanner(arquivo.getInputStream())
+                .useDelimiter("\\A").next();
+        } catch (IOException e) {
+            // trata o erro
+        }
+    }
+	
 	public String getImage() {
 		return image;
 	}
@@ -31,11 +53,11 @@ public class ConfigPhotoBean {
 		this.image = image;
 	}
 
-	public Part getFileImagemAgradecimento() {
+	public UploadedFile getFileImagemAgradecimento() {
 		return fileImagemAgradecimento;
 	}
 
-	public void setFileImagemAgradecimento(Part fileImagemAgradecimento) {
+	public void setFileImagemAgradecimento(UploadedFile fileImagemAgradecimento) {
 		this.fileImagemAgradecimento = fileImagemAgradecimento;
 	}
 
@@ -56,11 +78,6 @@ public class ConfigPhotoBean {
 	public void editConfigPhoto(Long codConfigPhoto) {
 		this.setConfigPhoto(configPhotoDAO.edit(codConfigPhoto));
 	}
-
-	public void handleFileUpload(FileUploadEvent event){
-		FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-	}
 	
 	public void deleteConfigPhoto(ConfigPhoto configPhoto) {
 		configPhotoDAO.delete(configPhoto);
@@ -75,18 +92,18 @@ public class ConfigPhotoBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
 
-//		if (!this.getFileImagemAgradecimento().) {
-//			try {
-//				String extension = this.getFileImagemAgradecimento().getContentType().replace("image/", "");
-//				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-//
-//				FileUtil.copyFile(fileName, this.getFileImagemAgradecimento().getInputstream());
-//
-//				configPhoto.setNomeImagemAgradecimento(fileName);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		if (!this.getFileImagemAgradecimento().getName().isEmpty()) {
+			try {
+				String extension = this.getFileImagemAgradecimento().getContentType().replace("image/", "");
+				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
+
+				FileUtil.copyFile(fileName, this.getFileImagemAgradecimento().getInputStream());
+
+				configPhoto.setNomeImagemAgradecimento(fileName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		if (configPhoto.getCodConfigPhoto() == 0) {
 			configPhotoDAO.insert(configPhoto);
