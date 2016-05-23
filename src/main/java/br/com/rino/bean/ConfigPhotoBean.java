@@ -2,63 +2,62 @@ package br.com.rino.bean;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 
-import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.context.WebApplicationContext;
 
 import br.com.rino.dao.ConfigPhotoDAO;
 import br.com.rino.entity.ConfigPhoto;
 import br.com.rino.util.FileUtil;
 
-@ManagedBean(name = "configPhotoBean")
-@SessionScoped
+@Controller("configPhotoBean")
+@Scope(WebApplicationContext.SCOPE_SESSION)
 public class ConfigPhotoBean {
 
 	private ConfigPhoto configPhoto = new ConfigPhoto();
 	private ConfigPhotoDAO configPhotoDAO = new ConfigPhotoDAO();
-	private String image;
-	private UploadedFile fileImagemAgradecimento;
 
-	private Part arquivo; 
+	public void handleFileUpload(FileUploadEvent event) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+				"Arquivo adicionado com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		RequestContext request = RequestContext.getCurrentInstance();
 
-    public Part getArquivo() {
-		return arquivo;
+		try {
+			String extension = event.getFile().getContentType().replace("image/", "");
+			String fileName = FileUtil.generateUniqueFileName() + "." + extension;
+
+			FileUtil.copyFile(fileName, event.getFile().getInputstream());
+
+			configPhoto.setNomeImagemAgradecimento(fileName);
+			configPhotoDAO.update(configPhoto);
+			request.update("formModalEdit");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void setArquivo(Part arquivo) {
-		this.arquivo = arquivo;
-	}
-
-	public void importa() {
-        try {
-            String conteudo = new Scanner(arquivo.getInputStream())
-                .useDelimiter("\\A").next();
-        } catch (IOException e) {
-            // trata o erro
-        }
-    }
-	
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public UploadedFile getFileImagemAgradecimento() {
-		return fileImagemAgradecimento;
-	}
-
-	public void setFileImagemAgradecimento(UploadedFile fileImagemAgradecimento) {
-		this.fileImagemAgradecimento = fileImagemAgradecimento;
+	public void deleteFileUpload() {
+		if (FileUtil.deleteFile(configPhoto.getNomeImagemAgradecimento())) {
+			configPhoto.setNomeImagemAgradecimento("");
+			configPhotoDAO.update(configPhoto);
+			
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+					"Arquivo excluído com sucesso!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}else{
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro",
+					"Erro ao deletar arquivo!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
 	}
 
 	public ConfigPhoto getConfigPhoto() {
@@ -78,10 +77,10 @@ public class ConfigPhotoBean {
 	public void editConfigPhoto(Long codConfigPhoto) {
 		this.setConfigPhoto(configPhotoDAO.edit(codConfigPhoto));
 	}
-	
+
 	public void deleteConfigPhoto(ConfigPhoto configPhoto) {
 		configPhotoDAO.delete(configPhoto);
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
 				"Registro deletado com sucesso!");
@@ -91,19 +90,6 @@ public class ConfigPhotoBean {
 	public void saveConfigPhoto(ConfigPhoto configPhoto) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
-
-		if (!this.getFileImagemAgradecimento().getName().isEmpty()) {
-			try {
-				String extension = this.getFileImagemAgradecimento().getContentType().replace("image/", "");
-				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-
-				FileUtil.copyFile(fileName, this.getFileImagemAgradecimento().getInputStream());
-
-				configPhoto.setNomeImagemAgradecimento(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 
 		if (configPhoto.getCodConfigPhoto() == 0) {
 			configPhotoDAO.insert(configPhoto);

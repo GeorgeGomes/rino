@@ -1,14 +1,12 @@
 package br.com.rino.rxtx;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class SerialComLeitura implements Runnable, SerialPortEventListener {
 

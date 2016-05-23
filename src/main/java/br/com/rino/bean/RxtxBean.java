@@ -5,10 +5,10 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
-import br.com.rino.dao.ConfigPhotoDAO;
 import br.com.rino.dao.ConfigGeneralDAO;
-import br.com.rino.entity.ConfigPhoto;
+import br.com.rino.dao.ConfigPhotoDAO;
 import br.com.rino.entity.ConfigGeneral;
+import br.com.rino.entity.ConfigPhoto;
 import br.com.rino.rxtx.SerialComLeitura;
 
 @ManagedBean(name = "rxtxBean")

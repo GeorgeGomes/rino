@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import br.com.rino.entity.ConfigGeneral;
-import br.com.rino.entity.Panel;
 import br.com.rino.util.HibernateUtil;
 
 public class ConfigGeneralDAO {

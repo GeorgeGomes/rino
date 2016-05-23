@@ -11,30 +11,13 @@
 	</session-config>
 
 	<context-param>
-		<param-name>org.jboss.jbossfaces.JSF_CONFIG_NAME</param-name>
-		<param-value>myfaces-2.2.9</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
-		<param-value>1048576</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>facelets.BUFFER_SIZE</param-name>
-		<param-value>1048576</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>org.apache.myfaces.RESOURCE_BUFFER_SIZE</param-name>
-		<param-value>1048576</param-value>
-	</context-param>
-
-	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
 
+	<!-- IMAGES CONF IN TOMCAT SERVER - see in server.xml /rino/images -->
+
+	<!-- SERVLET IMAGE -->
 	<servlet>
 		<servlet-name>Dynamic Image Servlet</servlet-name>
 		<servlet-class>br.com.rino.servlet.DynamicImageServlet</servlet-class>
@@ -44,6 +27,21 @@
 		<url-pattern>/images/dynamic/*</url-pattern>
 	</servlet-mapping>
 
+	<!-- SPRING CORE -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+	<!-- PRIME FACES -->
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>sam</param-value>
+	</context-param>
+
+	<!-- JSF MY FACES -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>org.apache.myfaces.webapp.MyFacesServlet</servlet-class>

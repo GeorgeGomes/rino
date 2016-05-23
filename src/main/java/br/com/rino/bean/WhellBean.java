@@ -10,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.rino.dao.WhellDAO;
@@ -22,7 +23,6 @@ public class WhellBean {
 
 	private Whell whell = new Whell();
 	private WhellDAO whellDAO = new WhellDAO();
-	private UploadedFile file;
 	private Long qtdeJogadas;
 
 	public Long getQtdeJogadas() {
@@ -33,12 +33,39 @@ public class WhellBean {
 		this.qtdeJogadas = qtdeJogadas;
 	}
 
-	public UploadedFile getFile() {
-		return file;
+	public void handleFileUpload(FileUploadEvent event) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+				"Arquivo adicionado com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		RequestContext request = RequestContext.getCurrentInstance();
+
+		try {
+			String extension = event.getFile().getContentType().replace("image/", "");
+			String fileName = FileUtil.generateUniqueFileName() + "." + extension;
+
+			FileUtil.copyFile(fileName, event.getFile().getInputstream());
+
+			whell.setNomeImagem(fileName);
+			whellDAO.update(whell);
+			request.update("formModalEdit");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void setFile(UploadedFile file) {
-		this.file = file;
+	public void deleteFileUpload() {
+		if (FileUtil.deleteFile(whell.getNomeImagem())) {
+			whell.setNomeImagem("");
+			whellDAO.update(whell);
+
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+					"Arquivo excluído com sucesso!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} else {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Erro ao deletar arquivo!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
 	}
 
 	public Double totalPremios() {
@@ -79,19 +106,6 @@ public class WhellBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
 
-		if (!this.getFile().getFileName().isEmpty()) {
-			try {
-				String extension = this.getFile().getContentType().replace("image/", "");
-				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-
-				FileUtil.copyFile(fileName, this.getFile().getInputstream());
-
-				whell.setNomeImagem(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
 		if (whell.getCodWhell() == 0) {
 			whellDAO.insert(whell);
 		} else {
@@ -108,19 +122,6 @@ public class WhellBean {
 	public void saveWhell(Whell whell) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
-
-		if (!this.getFile().getFileName().isEmpty()) {
-			try {
-				String extension = this.getFile().getContentType().replace("image/", "");
-				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-
-				FileUtil.copyFile(fileName, this.getFile().getInputstream());
-
-				whell.setNomeImagem(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 
 		if (whell.getCodWhell() == 0) {
 			whellDAO.insert(whell);

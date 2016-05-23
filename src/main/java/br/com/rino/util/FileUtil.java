@@ -18,6 +18,8 @@ import org.apache.commons.lang.RandomStringUtils;
 
 public class FileUtil {
 	
+	private final static String IMAGES_DIRECTORY = "C:\\rino\\uploads\\images";
+	
 	public static byte[] convertBase64ToByte(String base64String) throws IOException {
 		byte[] decodedBytes = Base64.decodeBase64(base64String);
 
@@ -65,7 +67,7 @@ public class FileUtil {
 	public static void copyFile(String fileName, InputStream in) {
 		try {
 
-			File directory = new File("C:\\rino\\uploads\\images");
+			File directory = new File(IMAGES_DIRECTORY);
 			if (!directory.isDirectory()) {
 				directory.mkdirs();
 			}
@@ -88,6 +90,22 @@ public class FileUtil {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	public static boolean deleteFile(String fileName) {
+		boolean deleted = false;
+		try {
+			File file = new File(IMAGES_DIRECTORY + "\\" + fileName);
+			if (file.delete()) {
+				deleted = true;
+			}else{
+				deleted = false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			deleted = false;
+		}
+		return deleted;
 	}
 
 	public static String generateUniqueFileName() {

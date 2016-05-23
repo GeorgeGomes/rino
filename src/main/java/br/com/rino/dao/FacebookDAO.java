@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import br.com.rino.entity.Facebook;
-import br.com.rino.entity.Whell;
 import br.com.rino.util.HibernateUtil;
 
 public class FacebookDAO {

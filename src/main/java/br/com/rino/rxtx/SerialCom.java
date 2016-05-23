@@ -1,6 +1,7 @@
 package br.com.rino.rxtx;
-import gnu.io.CommPortIdentifier;
 import java.util.Enumeration;
+
+import gnu.io.CommPortIdentifier;
 
 public class SerialCom {
 

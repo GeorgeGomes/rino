@@ -7,7 +7,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import br.com.rino.entity.Carousel;
 import br.com.rino.entity.ConfigCarousel;
 import br.com.rino.util.HibernateUtil;
 
