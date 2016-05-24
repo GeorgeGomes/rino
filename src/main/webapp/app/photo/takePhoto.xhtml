@@ -1,18 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:composite="http://java.sun.com/jsf/composite" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:composite="http://xmlns.jcp.org/jsf/composite" xmlns:p="http://primefaces.org/ui">
+
 <h:head>
 	<title>Foto</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
-	<script src="../../js/bootstrap.min.js"></script>
-	<script src="../../js/facebook.js"></script>
-	<script src="../../js/say-cheese.js"></script>
+	<h:outputScript name="js/jquery.min.js" />
+	<h:outputScript name="js/bootstrap.min.js" />
+	<h:outputScript name="js/facebook.js" />
+	<h:outputScript name="js/say-cheese.js" />
 
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
-	<link rel="stylesheet" href="../../css/say-cheese.css" />
-
-
+	<h:outputStylesheet name="css/bootstrap.min.css" />
+	<h:outputStylesheet name="css/style.css" />
+	<h:outputStylesheet name="css/say-cheese.css" />
+	
+	
 	<style>
 .button-facebook {
 	font-size: 22px;
@@ -130,8 +131,8 @@ video {
 
 	</h:form>
 	
-	<div style="width: 300px; position: absolute; bottom: 20px; right: 20px">
-			<button class="btn btn-default">Não obrigado</button>
+	<div style="width: 100px; position: absolute; bottom: 20px; right: 20px">
+			<button class="btn btn-default">Pular</button>
 	</div>
 	
 	

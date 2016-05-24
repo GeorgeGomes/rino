@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.primefaces.context.RequestContext;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.event.FileUploadEvent;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.context.WebApplicationContext;
 
 import br.com.rino.dao.ConfigPanelDAO;
 import br.com.rino.dao.PanelDAO;
@@ -19,49 +19,136 @@ import br.com.rino.entity.ConfigPanel;
 import br.com.rino.entity.Panel;
 import br.com.rino.util.FileUtil;
 
-@ManagedBean(name = "panelBean")
-@ViewScoped
+@Controller("panelBean")
+@Scope(WebApplicationContext.SCOPE_SESSION)
 public class PanelBean {
 
 	private Panel panel = new Panel();
 	private ConfigPanel configPanel = new ConfigPanel();
+	
 	private PanelDAO panelDAO = new PanelDAO();
 	private ConfigPanelDAO configPanelDAO = new ConfigPanelDAO();
-	private UploadedFile file;
-	private UploadedFile fileConfigInit;
-	private UploadedFile fileConfigEnd;
 
-	public String testButtonAction() {
-		System.out.println("testButtonAction invoked");
-		return "anotherPage.xhtml";
+	
+	public void handleFileUploadInit(FileUploadEvent event) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+				"Arquivo adicionado com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		RequestContext request = RequestContext.getCurrentInstance();
+		
+		try {
+			String extension = event.getFile().getContentType().replace("image/", "");
+			String fileName = FileUtil.generateUniqueFileName() + "." + extension;
+
+			FileUtil.copyFile(fileName, event.getFile().getInputstream());
+			
+			configPanel.setNomeImagemInit(fileName);
+			configPanelDAO.update(configPanel);
+			request.update("formModalConfig");
+			request.update("form:dataTable");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteFileUploadInit() {
+		if (FileUtil.deleteFile(configPanel.getNomeImagemInit())) {
+			configPanel.setNomeImagemInit("");
+			configPanelDAO.update(configPanel);
+
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+					"Arquivo excluído com sucesso!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			RequestContext request = RequestContext.getCurrentInstance();
+			
+			request.update("form:dataTable");
+		} else {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Erro ao deletar arquivo!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+	
+	public void handleFileUploadEnd(FileUploadEvent event) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+				"Arquivo adicionado com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		RequestContext request = RequestContext.getCurrentInstance();
+		
+		try {
+			String extension = event.getFile().getContentType().replace("image/", "");
+			String fileName = FileUtil.generateUniqueFileName() + "." + extension;
+
+			FileUtil.copyFile(fileName, event.getFile().getInputstream());
+			
+			configPanel.setNomeImagemEnd(fileName);
+			configPanelDAO.update(configPanel);
+			request.update("formModalConfig");
+			request.update("form:dataTable");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+				"Arquivo adicionado com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		RequestContext request = RequestContext.getCurrentInstance();
+		
+		try {
+			String extension = event.getFile().getContentType().replace("image/", "");
+			String fileName = FileUtil.generateUniqueFileName() + "." + extension;
+
+			FileUtil.copyFile(fileName, event.getFile().getInputstream());
+			
+			panel.setNomeImagem(fileName);
+			panelDAO.update(panel);
+			request.update("formModalEdit");
+			request.update("form:dataTable");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteFileUploadEnd() {
+		if (FileUtil.deleteFile(configPanel.getNomeImagemInit())) {
+			configPanel.setNomeImagemEnd("");
+			configPanelDAO.update(configPanel);
+
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+					"Arquivo excluído com sucesso!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			RequestContext request = RequestContext.getCurrentInstance();
+			
+			request.update("form:dataTable");
+			
+		} else {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Erro ao deletar arquivo!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
 	}
 
-	public void testButtonActionListener(ActionEvent event) {
-		System.out.println("testButtonActionListener invoked");
-	}
 
-	public UploadedFile getFileConfigInit() {
-		return fileConfigInit;
-	}
+	
+	public void deleteFileUpload() {
+		if (FileUtil.deleteFile(panel.getNomeImagem())) {
+			panel.setNomeImagem("");
+			panelDAO.update(panel);
 
-	public void setFileConfigInit(UploadedFile fileConfigInit) {
-		this.fileConfigInit = fileConfigInit;
-	}
-
-	public UploadedFile getFileConfigEnd() {
-		return fileConfigEnd;
-	}
-
-	public void setFileConfigEnd(UploadedFile fileConfigEnd) {
-		this.fileConfigEnd = fileConfigEnd;
-	}
-
-	public UploadedFile getFile() {
-		return file;
-	}
-
-	public void setFile(UploadedFile file) {
-		this.file = file;
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+					"Arquivo excluído com sucesso!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			RequestContext request = RequestContext.getCurrentInstance();
+			
+			request.update("form:dataTable");
+			
+		} else {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Erro ao deletar arquivo!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
 	}
 
 	public ConfigPanel getConfigPanel() {
@@ -104,19 +191,6 @@ public class PanelBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
 
-		if (!file.getFileName().isEmpty()) {
-			try {
-				String extension = this.getFile().getContentType().replace("image/", "");
-				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-
-				FileUtil.copyFile(fileName, this.getFile().getInputstream());
-
-				panel.setNomeImagem(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
 		if (panel.getCodPanel() == 0) {
 			panelDAO.insert(panel);
 		} else {
@@ -126,27 +200,15 @@ public class PanelBean {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Salvo com sucesso!");
 		context.addMessage("messages", message);
 
-		request.execute("PF('modalEdit').hide();");
+		//request.execute("PF('modalEdit').hide();");
 		request.update("form:dataTable");
+		request.update("messages");
 	}
-	
-	public void savePanel() {
+
+	public void savePanel_DELETE() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
 
-		if (!file.getFileName().isEmpty()) {
-			try {
-				String extension = this.getFile().getContentType().replace("image/", "");
-				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-
-				FileUtil.copyFile(fileName, this.getFile().getInputstream());
-
-				panel.setNomeImagem(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
 		if (panel.getCodPanel() == 0) {
 			panelDAO.insert(panel);
 		} else {
@@ -156,39 +218,14 @@ public class PanelBean {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Salvo com sucesso!");
 		context.addMessage("messages", message);
 
-		request.execute("PF('modalEdit').hide();");
+		//request.execute("PF('modalEdit').hide();");
 		request.update("form:dataTable");
+		request.update("messages");
 	}
 
 	public void saveConfigPanel(ConfigPanel configPanel) throws ConfigurationException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
-
-		if (!fileConfigInit.getFileName().isEmpty()) {
-			try {
-				String extension = this.getFileConfigInit().getContentType().replace("image/", "");
-				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-
-				FileUtil.copyFile(fileName, this.getFileConfigInit().getInputstream());
-
-				configPanel.setNomeImagemInit(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		if (!fileConfigEnd.getFileName().isEmpty()) {
-			try {
-				String extension = this.getFileConfigEnd().getContentType().replace("image/", "");
-				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-
-				FileUtil.copyFile(fileName, this.getFileConfigEnd().getInputstream());
-
-				configPanel.setNomeImagemEnd(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 
 		if (configPanel.getCodConfigPanel() == 0) {
 			configPanelDAO.insert(configPanel);
@@ -199,8 +236,9 @@ public class PanelBean {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Salvo com sucesso!");
 		context.addMessage("messages", message);
 
-		request.execute("PF('modalConfig').hide();");
-		request.update("form:dataTable");
+		//request.execute("PF('modalEdit').hide();");
+		//request.update("form:dataTable");
+		request.update("messages");
 	}
 
 	public List<Panel> listPanel() {

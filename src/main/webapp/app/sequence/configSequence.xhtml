@@ -1,112 +1,69 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:composite="http://xmlns.jcp.org/jsf/composite" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Configurações da Sequencia de Telas</title>
-	<h:outputScript library="primefaces" name="jquery/jquery.js"
-		target="head" />
-	<script src="../../js/bootstrap.min.js"></script>
 
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
 </h:head>
 <h:body>
-	<p:growl id="messages" showDetail="true" life="10000"
-		showSummary="false" />
+	<ui:composition template="/app/template/layout.xhtml">
+		<ui:param name="title" value="CONFIGURAÇÕES DAS SEQUÊNCIA" />
+		<ui:define name="content">
 
-
-	<h:form id="form">
-		<div class="panel panel-default"
-			style="width: 90%; margin: 30px auto 0 auto">
-			<div class="panel-heading"
-				style="font-size: 20px; text-transform: uppercase; font-weight: bold">
-				Configurações das Sequências <a href="/rino" style="float: right"><img
-					src="../../images/red-home-icon.png" /></a>
-				<div style="clear: both"></div>
-			</div>
-			<div class="panel-body">
-
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<p:commandButton value="Nova Sequência"
-							style="margin-bottom:4px;font-size:14px;font-weight:bold"
-							action="#{sequenceBean.newSequence()}" ajax="true"
-							update="modalEdit" oncomplete="PF('modalEdit').show();" />
-
+			<h:form id="form">
+				<div class="panel panel-default" style="width: 90%; margin: 30px auto 0 auto">
+					<div class="panel-heading" style="font-size: 20px; text-transform: uppercase; font-weight: bold">
+						Configurações das Sequências
+						<a href="/rino" style="float: right">
+							<h:graphicImage url="/resources/images/red-home-icon.png" alt="home" />
+						</a>
 						<div style="clear: both"></div>
 					</div>
 					<div class="panel-body">
 
-						<p:dataTable value="#{sequenceBean.listSequence()}" var="data"
-							emptyMessage="Nenhum registro encontrado" paginator="true"
-							rows="10"
-							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-							currentPageReportTemplate="{endRecord} de {totalRecords}"
-							rowsPerPageTemplate="5,10,15" lazy="true">
-							<p:column headerText="Nome">
-								<h:outputText value="#{data.url}"></h:outputText>
-							</p:column>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<p:commandButton value="Nova Sequência" style="margin-bottom:4px;font-size:14px;font-weight:bold" action="#{sequenceBean.newSequence()}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" />
 
-							<p:column headerText="">
-								<p:commandButton value="Editar" style="font-size:12px"
-									action="#{sequenceBean.editSequence(data.codSequence)}"
-									ajax="true" update="modalEdit"
-									oncomplete="PF('modalEdit').show();" />
-								<p:commandButton value="Excluir" style="font-size:12px"
-									action="#{sequenceBean.deleteSequence(data)}" ajax="true"
-									update="form messages" />
-							</p:column>
-						</p:dataTable>
+								<div style="clear: both"></div>
+							</div>
+							<div class="panel-body">
+
+								<p:dataTable id="dataTable" value="#{sequenceBean.listSequence()}" var="data" emptyMessage="Nenhum registro encontrado" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" currentPageReportTemplate="{endRecord} de {totalRecords}" rowsPerPageTemplate="5,10,15" lazy="true">
+									<p:column headerText="Nome">
+										<h:outputText value="#{data.url}"></h:outputText>
+									</p:column>
+
+									<p:column headerText="">
+										<p:commandButton value="Editar" style="font-size:10px;font-weight:bold" action="#{sequenceBean.editSequence(data.codSequence)}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" />
+										<p:commandButton value="Excluir" style="font-size:10px;font-weight:bold" action="#{sequenceBean.deleteSequence(data)}" ajax="true" update="form messages" />
+									</p:column>
+								</p:dataTable>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</h:form>
+			</h:form>
 
-	<p:dialog header="Sequencia" widgetVar="modalEdit" id="modalEdit"
-		modal="true" style="min-width:800px">
+			<p:dialog header="Sequencia" widgetVar="modalEdit" id="modalEdit" modal="true" style="min-width:800px">
 
-		<h:form id="formModalEdit" enctype="multipart/form-data">
-			<p:message for="url" display="tooltip" />
+				<h:form id="formModalEdit" enctype="multipart/form-data">
 
-			<h:panelGrid columns="2" cellpadding="5">
+					<p:panel header="APP" style="margin:5px;text-transform:uppercase">
+						<p:selectOneMenu id="url" required="true" requiredMessage="Campo 'URL' é de preenchimento obrigatório" value="#{sequenceBean.sequence.url}" style="width:300px">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItem itemLabel="CARROSSEL" itemValue="/rino/app/carousel/carousel.xhtml" />
+							<f:selectItem itemLabel="PAINEL" itemValue="/rino/app/panel/panel.xhtml" />
+							<f:selectItem itemLabel="ROLETA" itemValue="/rino/app/whell/whell.xhtml" />
+							<f:selectItem itemLabel="FOTO" itemValue="/rino/app/photo/initPhoto.xhtml" />
+						</p:selectOneMenu>
+					</p:panel>
 
-				<h:outputLabel value="URL" for="url" />
-				<p:selectOneMenu id="url" required="true"
-					requiredMessage="Campo 'URL' é de preenchimento obrigatório"
-					value="#{sequenceBean.sequence.url}" style="width:300px">
-					<f:selectItem itemLabel="CARROSSEL"
-						itemValue="http://localhost:8080/rino/app/carousel/carousel.xhtml" />
-					<f:selectItem itemLabel="PAINEL"
-						itemValue="http://localhost:8080/rino/app/panel/panel.xhtml" />
-					<f:selectItem itemLabel="ROLETA"
-						itemValue="http://localhost:8080/rino/app/whell/whell.xhtml" />
-					<f:selectItem itemLabel="FOTO"
-						itemValue="http://localhost:8080/rino/app/photo/initPhoto.xhtml" />
-				</p:selectOneMenu>
+					<p:commandButton value="SALVAR" style="font-size:18px;font-weight:bold" action="#{sequenceBean.saveSequence(sequenceBean.sequence)}" update="formModalEdit messages" ajax="true" />
 
-				<h:outputLabel />
-				<h:outputLabel />
+				</h:form>
 
-				<h:outputLabel />
-				<p:commandButton value="SALVAR"
-					style="font-size:16px;font-weight:bold"
-					action="#{sequenceBean.saveSequence(sequenceBean.sequence)}"
-					update="formModalEdit messages" ajax="false">
-
-				</p:commandButton>
-
-
-			</h:panelGrid>
-
-		</h:form>
-
-	</p:dialog>
-
+			</p:dialog>
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>

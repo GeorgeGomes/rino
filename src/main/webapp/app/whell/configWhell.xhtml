@@ -2,153 +2,161 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:composite="http://xmlns.jcp.org/jsf/composite" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>CONFIGURAÇÃO DA ROLETA</title>
-	<script src="../../js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+
 </h:head>
 <h:body>
-	<p:growl id="messages" showDetail="true" life="8000" showSummary="false" widgetVar="growl" />
+	<ui:composition template="/app/template/layout.xhtml">
+		<ui:param name="title" value="CONFIGURAÇÕES ROLETA" />
+		<ui:define name="content">
 
-	<h:form id="form">
-		<div class="panel panel-default" style="width: 90%; margin: 30px auto 0 auto">
-			<div class="panel-heading" style="font-size: 20px; text-transform: uppercase; font-weight: bold">
-				CONFIGURAÇÕES DA ROLETA
-				<a href="/rino" style="float: right">
-					<img src="../../images/red-home-icon.png" />
-				</a>
-				<div style="clear: both"></div>
-			</div>
-			<div class="panel-body">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-
-						<p:commandButton value="Nova Fatia" style="float:left;margin-bottom:4px;font-size:14px;font-weight:bold" action="#{whellBean.newWhell()}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" disabled="#{whellBean.listWhell().size() == 8}" />
-
-						<p:commandButton value="Gerar Jogadas" style="float:right;margin-bottom:4px;font-size:14px;font-weight:bold" actionListener="#{jogadasBean.gerarJogadas()}" onclick="PF('growl').renderMessage({summary:'Jogadas', detail: 'Gerando as jogadas no servidor, isso pode demorar um pouquinho...', severity: 1});" disabled="#{whellBean.listWhell().size() &lt; 8}" update="messages">
-							<p:confirm header="Confirmation" message="Deseja gerar as jogadas?" icon="ui-icon-alert" />
-						</p:commandButton>
-
-						<p:commandButton value="Ver Jogadas" style="float:right;margin-bottom:4px;font-size:14px;font-weight:bold" ajax="false" action="#{utilBean.redirect('/rino/app/whell/configJogadas.xhtml')}" disabled="#{whellBean.listWhell().size() &lt; 8}" />
+			<h:form id="form">
+				<div class="panel panel-default" style="width: 90%; margin: 30px auto 0 auto">
+					<div class="panel-heading" style="font-size: 20px; text-transform: uppercase; font-weight: bold">
+						CONFIGURAÇÕES DA ROLETA
+						<a href="/rino" style="float: right">
+							<h:graphicImage url="/resources/images/red-home-icon.png" alt="home"/>
+						</a>
 						<div style="clear: both"></div>
-
 					</div>
 					<div class="panel-body">
+						<div class="panel panel-default">
+							<div class="panel-heading">
 
-						<p:dataTable id="dataTable" emptyMessage="Nenhum registro encontrado" value="#{whellBean.listWhell()}" var="data" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" currentPageReportTemplate="{endRecord} de {totalRecords}" rowsPerPageTemplate="5,10,15" lazy="true">
+								<p:commandButton value="Nova Fatia" style="float:left;margin-bottom:4px;font-size:14px;font-weight:bold" action="#{whellBean.newWhell()}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" disabled="#{whellBean.listWhell().size() == 8}" />
 
-							<p:column headerText="Nome">
-								<h:outputText value="#{data.descricaoFatia}"></h:outputText>
-							</p:column>
+								<p:commandButton value="Gerar Jogadas" style="float:right;margin-bottom:4px;font-size:14px;font-weight:bold" actionListener="#{jogadasBean.gerarJogadas()}" onclick="PF('growl').renderMessage({summary:'Jogadas', detail: 'Gerando as jogadas no servidor, isso pode demorar um pouquinho...', severity: 1});" disabled="#{whellBean.listWhell().size() &lt; 8}" update="messages">
+									<p:confirm header="Confirmation" message="Deseja gerar as jogadas?" icon="ui-icon-alert" />
+								</p:commandButton>
 
-							<p:column headerText="Qtde Prêmios">
-								<h:outputText value="#{data.premios}"></h:outputText>
-							</p:column>
+								<p:commandButton value="Ver Jogadas" style="float:right;margin-bottom:4px;font-size:14px;font-weight:bold" ajax="false" action="#{utilBean.redirect('/rino/app/whell/configJogadas.xhtml')}" disabled="#{whellBean.listWhell().size() &lt; 8}" />
+								<div style="clear: both"></div>
 
-							<p:column headerText="Vitórias">
-								<h:outputText value="#{data.vitorias}"></h:outputText>
-							</p:column>
+							</div>
+							<div class="panel-body">
 
-							<p:column headerText="Angulo Incial">
-								<h:outputText value="#{data.anguloInicial.toString().concat('°')}"></h:outputText>
-							</p:column>
+								<p:dataTable id="dataTable" emptyMessage="Nenhum registro encontrado" value="#{whellBean.listWhell()}" var="data" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" currentPageReportTemplate="{endRecord} de {totalRecords}" rowsPerPageTemplate="5,10,15" lazy="true">
 
-							<p:column headerText="Angulo Final">
-								<h:outputText value="#{data.anguloFinal.toString().concat('°')}"></h:outputText>
-							</p:column>
+									<p:column headerText="Nome">
+										<h:outputText value="#{data.descricaoFatia}"></h:outputText>
+									</p:column>
 
-							<p:column headerText="Imagem">
-								<h:graphicImage url="/uploads/images/#{data.nomeImagem}" width="50" />
-							</p:column>
+									<p:column headerText="Qtde Prêmios">
+										<h:outputText value="#{data.premios}"></h:outputText>
+									</p:column>
 
-							<p:column headerText="Color">
-								<p:commandButton value="Editar" style="font-size:12px" action="#{whellBean.editWhell(data.codWhell)}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" />
-								<p:commandButton value="Excluir" style="font-size:12px" action="#{whellBean.deleteWhell(data)}" ajax="true" update="form messages" />
-							</p:column>
+									<p:column headerText="Vitórias">
+										<h:outputText value="#{data.vitorias}"></h:outputText>
+									</p:column>
 
-							<f:facet name="footer">
-								<h:panelGroup style="display:block; text-align:right">
-									<h:outputText value="Total de Jogadas: #{whellBean.totalPremios()}" />
-								</h:panelGroup>
-							</f:facet>
+									<p:column headerText="Angulo Incial">
+										<h:outputText value="#{data.anguloInicial.toString().concat('°')}"></h:outputText>
+									</p:column>
 
-						</p:dataTable>
+									<p:column headerText="Angulo Final">
+										<h:outputText value="#{data.anguloFinal.toString().concat('°')}"></h:outputText>
+									</p:column>
+
+									<p:column headerText="Imagem">
+										<h:graphicImage url="/uploads/images/#{data.nomeImagem}" width="50" />
+									</p:column>
+
+									<p:column headerText="Color">
+										<p:commandButton value="Editar" style="font-size:10px;font-weight:bold" action="#{whellBean.editWhell(data.codWhell)}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" />
+										<p:commandButton value="Excluir" style="font-size:10px;font-weight:bold" action="#{whellBean.deleteWhell(data)}" ajax="true" update="form messages" />
+									</p:column>
+
+									<f:facet name="footer">
+										<h:panelGroup style="display:block; text-align:right">
+											<h:outputText value="Total de Jogadas: #{whellBean.totalPremios()}" />
+										</h:panelGroup>
+									</f:facet>
+
+								</p:dataTable>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 
 
-	</h:form>
+			</h:form>
 
-	<p:dialog header="FATIA" widgetVar="modalEdit" id="modalEdit" modal="true" style="min-width:800px">
+			<p:dialog header="FATIA" widgetVar="modalEdit" id="modalEdit" modal="true" style="min-width:800px">
 
-		<h:form id="formModalEdit" enctype="multipart/form-data">
-			<div style="font-size: 11px; width: 900px; height: 500px; overflow-y: scroll;">
-
-
-				<p:panel header="NOME FATIA" style="margin:5px;text-transform:uppercase;">
-					<p:inputText id="descricaoFatia" required="true" style="width:100%" requiredMessage="Campo 'Fatia' é de preenchimento obrigatório" value="#{whellBean.whell.descricaoFatia}" />
-				</p:panel>
-
-				<p:panel header="QTDE. DE PRÊMIOS" style="margin:5px;text-transform:uppercase;">
-					<p:spinner id="premios" required="true" requiredMessage="Campo 'Qtde Prêmios' é de preenchimento obrigatório" converterMessage="Somente números inteiros" value="#{whellBean.whell.premios}" min="0" max="10000" stepFactor="1" />
-				</p:panel>
+				<h:form id="formModalEdit" enctype="multipart/form-data">
+					<div style="font-size: 11px; width: 900px; height: 500px; overflow-y: scroll;">
 
 
-				<p:panel header="ANGULOS" style="margin:5px;text-transform:uppercase;">
+						<p:panel header="NOME FATIA" style="margin:5px;text-transform:uppercase;">
+							<p:inputText id="descricaoFatia" required="true" style="width:100%" requiredMessage="Campo 'Fatia' é de preenchimento obrigatório" value="#{whellBean.whell.descricaoFatia}" />
+							<h:message for="descricaoFatia" errorClass="text-danger" style="font-size:10px" />
+						</p:panel>
 
-					<p:panel header="Angulo Inicial" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-						<p:selectOneMenu id="anguloInicial" required="true" requiredMessage="Campo 'Angulo Inicial' é de preenchimento obrigatório" converterMessage="Somente números inteiros" value="#{whellBean.whell.anguloInicial}" style="width:100px">
-							<f:selectItem itemLabel="0°" itemValue="0" />
-							<f:selectItem itemLabel="46°" itemValue="46" />
-							<f:selectItem itemLabel="91°" itemValue="91" />
-							<f:selectItem itemLabel="136°" itemValue="136" />
-							<f:selectItem itemLabel="181°" itemValue="181" />
-							<f:selectItem itemLabel="226°" itemValue="226" />
-							<f:selectItem itemLabel="271°" itemValue="271" />
-							<f:selectItem itemLabel="316°" itemValue="316" />
-						</p:selectOneMenu>
-					</p:panel>
-					<p:panel header="Angulo Final" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-						<p:selectOneMenu id="anguloFinal" required="true" requiredMessage="Campo 'Angulo Final' é de preenchimento obrigatório" converterMessage="Somente números inteiros" value="#{whellBean.whell.anguloFinal}" style="width:100px">
-							<f:selectItem itemLabel="45°" itemValue="45" />
-							<f:selectItem itemLabel="90°" itemValue="90" />
-							<f:selectItem itemLabel="135°" itemValue="135" />
-							<f:selectItem itemLabel="180°" itemValue="180" />
-							<f:selectItem itemLabel="225°" itemValue="225" />
-							<f:selectItem itemLabel="270°" itemValue="270" />
-							<f:selectItem itemLabel="315°" itemValue="315" />
-							<f:selectItem itemLabel="380°" itemValue="380" />
-						</p:selectOneMenu>
-					</p:panel>
-					<div style="clear: both;"></div>
-				</p:panel>
+						<p:panel header="QTDE. DE PRÊMIOS" style="margin:5px;text-transform:uppercase;">
+							<p:spinner id="premios" required="true" requiredMessage="Campo 'Qtde Prêmios' é de preenchimento obrigatório" converterMessage="Somente números inteiros" value="#{whellBean.whell.premios}" min="0" max="10000" stepFactor="1" />
+							<h:message for="premios" errorClass="text-danger" style="font-size:10px" />
+						</p:panel>
 
-				<p:panel header="VITORIAS" style="margin:5px;text-transform:uppercase;">
-					<h:outputLabel value="#{whellBean.whell.vitorias}" />
-				</p:panel>
 
-				<p:panel header="IMAGEM PRÊMIO" style="margin:5px;text-transform:uppercase">
-					<p:outputPanel rendered="#{whellBean.whell.codWhell > 0 &amp;&amp; whellBean.whell.nomeImagem == ''}">
-						<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{whellBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-					</p:outputPanel>
-					<p:outputPanel rendered="#{whellBean.whell.nomeImagem != ''}">
-						<h:graphicImage url="/uploads/images/#{whellBean.whell.nomeImagem}" width="50" />
-						<p:commandButton ajax="true" value="Excluir" action="#{whellBean.deleteFileUpload()}" update="formModalEdit messages" />
-					</p:outputPanel>
-				</p:panel>
+						<p:panel header="ANGULOS" style="margin:5px;text-transform:uppercase;">
 
-				<p:commandButton value="Salvar" style="font-size:18px;font-weight:bold" action="#{whellBean.saveWhell(whellBean.whell)}" update="formModalEdit messages" ajax="true" />
+							<p:panel header="Angulo Inicial" style="margin:5px;text-transform:uppercase;float:left;width:48%">
+								<p:selectOneMenu id="anguloInicial" required="true" requiredMessage="Campo 'Angulo Inicial' é de preenchimento obrigatório" converterMessage="Somente números inteiros" value="#{whellBean.whell.anguloInicial}" style="width:100px">
+									<f:selectItem itemLabel="0°" itemValue="0" />
+									<f:selectItem itemLabel="46°" itemValue="46" />
+									<f:selectItem itemLabel="91°" itemValue="91" />
+									<f:selectItem itemLabel="136°" itemValue="136" />
+									<f:selectItem itemLabel="181°" itemValue="181" />
+									<f:selectItem itemLabel="226°" itemValue="226" />
+									<f:selectItem itemLabel="271°" itemValue="271" />
+									<f:selectItem itemLabel="316°" itemValue="316" />
+								</p:selectOneMenu>
+								<h:message for="anguloInicial" errorClass="text-danger" style="font-size:10px" />
+							</p:panel>
+							<p:panel header="Angulo Final" style="margin:5px;text-transform:uppercase;float:left;width:48%">
+								<p:selectOneMenu id="anguloFinal" required="true" requiredMessage="Campo 'Angulo Final' é de preenchimento obrigatório" converterMessage="Somente números inteiros" value="#{whellBean.whell.anguloFinal}" style="width:100px">
+									<f:selectItem itemLabel="45°" itemValue="45" />
+									<f:selectItem itemLabel="90°" itemValue="90" />
+									<f:selectItem itemLabel="135°" itemValue="135" />
+									<f:selectItem itemLabel="180°" itemValue="180" />
+									<f:selectItem itemLabel="225°" itemValue="225" />
+									<f:selectItem itemLabel="270°" itemValue="270" />
+									<f:selectItem itemLabel="315°" itemValue="315" />
+									<f:selectItem itemLabel="380°" itemValue="380" />
+								</p:selectOneMenu>
+								<h:message for="anguloFinal" errorClass="text-danger" style="font-size:10px" />
+							</p:panel>
+							<div style="clear: both;"></div>
+						</p:panel>
 
-			</div>
-		</h:form>
+						<p:panel header="VITORIAS" style="margin:5px;text-transform:uppercase;">
+							<h:outputLabel value="#{whellBean.whell.vitorias}" />
+						</p:panel>
 
-	</p:dialog>
+						<p:panel header="IMAGEM PRÊMIO" style="margin:5px;text-transform:uppercase">
+							<p:outputPanel rendered="#{whellBean.whell.codWhell > 0 &amp;&amp; (whellBean.whell.nomeImagem == '' || whellBean.whell.nomeImagem == null)}">
+								<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{whellBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+							</p:outputPanel>
+							<p:outputPanel rendered="#{whellBean.whell.nomeImagem != '' &amp;&amp; whellBean.whell.nomeImagem != null}">
+								<h:graphicImage url="/uploads/images/#{whellBean.whell.nomeImagem}" width="50" />
+								<p:commandButton ajax="true" value="Excluir" action="#{whellBean.deleteFileUpload()}" update="formModalEdit messages" />
+							</p:outputPanel>
+							<p:outputPanel rendered="#{whellBean.whell.codWhell == 0}">
+								<p:outputLabel value="Salve a configuração para poder inserir uma imagem!" />
+							</p:outputPanel>
+						</p:panel>
 
-	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-		<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-		<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-	</p:confirmDialog>
+						<p:commandButton value="Salvar" style="font-size:18px;font-weight:bold" action="#{whellBean.saveWhell(whellBean.whell)}" update="formModalEdit messages" ajax="true" />
 
+					</div>
+				</h:form>
+
+			</p:dialog>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>

@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.rino.dao.CarouselDAO;
@@ -27,23 +28,57 @@ public class CarouselBean {
 	private CarouselDAO carouselDAO = new CarouselDAO();
 	private ConfigCarouselDAO configCarouselDAO = new ConfigCarouselDAO();
 	
-	private UploadedFile file;
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+				"Arquivo adicionado com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		RequestContext request = RequestContext.getCurrentInstance();
+		
+		try {
+			String extension = event.getFile().getContentType().replace("image/", "");
+			String fileName = FileUtil.generateUniqueFileName() + "." + extension;
 
-	public UploadedFile getFile() {
-		return file;
+			FileUtil.copyFile(fileName, event.getFile().getInputstream());
+			
+			carousel.setNomeImagem(fileName);
+			
+			if (carousel.getCodCarousel() == 0) {
+				carouselDAO.insert(carousel);
+			} else {
+				carouselDAO.update(carousel);
+			}
+			
+			request.update("formModalEdit");
+			request.update("form:dataTable");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-
-	public void setFile(UploadedFile file) {
-		this.file = file;
+	
+	public void deleteFileUpload() {
+		if (FileUtil.deleteFile(carousel.getNomeImagem())) {
+			carouselDAO.delete(carousel);
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+					"Arquivo excluído com sucesso!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			RequestContext request = RequestContext.getCurrentInstance();
+			
+			request.execute("PF('modalEdit').hide();");
+			request.update("form:dataTable");
+			
+		} else {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Erro ao deletar arquivo!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
 	}
-
+	
 	public void newCarousel() {
 		Carousel carousel = new Carousel();
 		carousel.setCodCarousel(0l);
 		this.setCarousel(carousel);
 	}
 	
-
 	public void editCarousel(Long codCarousel) {
 		this.setCarousel(carouselDAO.edit(codCarousel));
 	}
@@ -55,36 +90,6 @@ public class CarouselBean {
 		context.addMessage("messages", message);
 	}
 	
-	public void saveCarousel(Carousel carousel) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		RequestContext request = RequestContext.getCurrentInstance();
-				
-		if (!file.getFileName().isEmpty()) {
-			try {
-				String extension = this.getFile().getContentType().replace("image/", "");
-				String fileName = FileUtil.generateUniqueFileName() + "." + extension;
-
-				FileUtil.copyFile(fileName, this.getFile().getInputstream());
-
-				carousel.setNomeImagem(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		if (carousel.getCodCarousel() == 0) {
-			carouselDAO.insert(carousel);
-		} else {
-			carouselDAO.update(carousel);
-		}
-
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Salvo com sucesso!");
-		context.addMessage("messages", message);
-
-		request.execute("PF('modalEdit').hide();");
-		request.update("form:dataTable");
-	}
-
 	public void editConfigCarousel() throws ConfigurationException {
 		if(configCarouselDAO.getList() != null && configCarouselDAO.getList().size() > 0){
 			this.setConfigCarousel(configCarouselDAO.getList().get(0));
