@@ -44,10 +44,46 @@ public class ConfigPhotoBean {
 			e.printStackTrace();
 		}
 	}
+	
+	public void handleFileUploadOffline(FileUploadEvent event) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+				"Arquivo adicionado com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		RequestContext request = RequestContext.getCurrentInstance();
+
+		try {
+			String extension = event.getFile().getContentType().replace("image/", "");
+			String fileName = FileUtil.generateUniqueFileName() + "." + extension;
+
+			FileUtil.copyFile(fileName, event.getFile().getInputstream());
+
+			configPhoto.setNomeImagemOffline(fileName);
+			configPhotoDAO.update(configPhoto);
+			request.update("formModalEdit");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void deleteFileUpload() {
 		if (FileUtil.deleteFile(configPhoto.getNomeImagemAgradecimento())) {
 			configPhoto.setNomeImagemAgradecimento("");
+			configPhotoDAO.update(configPhoto);
+			
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
+					"Arquivo excluído com sucesso!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}else{
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro",
+					"Erro ao deletar arquivo!");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+	
+	public void deleteFileUploadOffline() {
+		if (FileUtil.deleteFile(configPhoto.getNomeImagemAgradecimento())) {
+			configPhoto.setNomeImagemOffline("");
 			configPhotoDAO.update(configPhoto);
 			
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",

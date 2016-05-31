@@ -32,6 +32,12 @@ public class ConfigPhoto implements Serializable {
 	@Column(name="nome_imagem_agradecimento")
 	private String nomeImagemAgradecimento;
 	
+	@Column(name="nome_imagem_offline")
+	private String nomeImagemOffline;
+	
+	@Column(name="nome_mensagem")
+	private String mensagemOffline;
+	
 	@Column(name="string_led")
 	private String stringLed;
 	
@@ -89,6 +95,22 @@ public class ConfigPhoto implements Serializable {
 
 	public void setNomeImagemAgradecimento(String nomeImagemAgradecimento) {
 		this.nomeImagemAgradecimento = nomeImagemAgradecimento;
+	}
+	
+	public String getNomeImagemOffline() {
+		return nomeImagemOffline;
+	}
+
+	public void setNomeImagemOffline(String nomeImagemOffline) {
+		this.nomeImagemOffline = nomeImagemOffline;
+	}
+
+	public String getMensagemOffline() {
+		return mensagemOffline;
+	}
+
+	public void setMensagemOffline(String mensagemOffline) {
+		this.mensagemOffline = mensagemOffline;
 	}
 
 	public String getStringLed() {

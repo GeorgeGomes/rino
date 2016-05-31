@@ -21,7 +21,8 @@
 </context-param>
 
 	<!-- IMAGES CONF IN TOMCAT SERVER - see in server.xml /rino/images -->
-
+	<!-- <Context  docBase="c:\Documents and Settings\The User\images"   path="/project/images" /> -->
+	
 	<!-- SERVLET IMAGE -->
 	<servlet>
 		<servlet-name>Dynamic Image Servlet</servlet-name>

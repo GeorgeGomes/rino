@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:composite="http://xmlns.jcp.org/jsf/composite" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://xmlns.jcp.org/jsf/html" 
+xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+xmlns:f="http://xmlns.jcp.org/jsf/core" 
+xmlns:composite="http://xmlns.jcp.org/jsf/composite" 
+xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Foto</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<h:outputScript name="js/jquery.min.js" />
-	<h:outputScript name="js/bootstrap.min.js" />
-	<h:outputScript name="js/facebook.js" />
-	<h:outputScript name="js/say-cheese.js" />
+<!-- 	<h:outputScript name="js/jquery.min.js" /> -->
+	<script src="/rino/resources/js/bootstrap.min.js"></script>
+	<script src="/rino/resources/js/facebook.js"></script>
+	<script src="/rino/resources/js/say-cheese.js"></script>
 
-	<h:outputStylesheet name="css/bootstrap.min.css" />
-	<h:outputStylesheet name="css/style.css" />
-	<h:outputStylesheet name="css/say-cheese.css" />
+	<link rel="stylesheet" href="/rino/resources/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/rino/resources/css/style.css" />
+	<link rel="stylesheet" href="/rino/resources/css/say-cheese.css" />
 	
 	
 	<style>
@@ -41,7 +46,7 @@ body {
 	padding: 0px !important;
 	margin: 0px !important;
 	overflow: hidden;
-	background-image: url(../../images/pattern.jpg);
+	background-image: url(/rino/resources/images/pattern.jpg);
 }
 
 video {
@@ -84,40 +89,17 @@ video {
 
 </h:head>
 <h:body>
-	<div style="margin: 2px; background-color: #000000; color: #ffffff">
-		Tire uma foto sua!
-		<img src="../../images/icon-cam.png" width="40"/>
+	<div style="margin: 2px; font-size:30px; font-weight:bold;background-color: #000000; color: #ffffff;padding:10px">
+		Tire uma foto!
+		<h:graphicImage url="/resources/images/camera.png" alt="camera" width="30"/>
 	</div>
+	<div style="clear:both"></div>
 	<h:form id="formImage">
 		<h:inputHidden id="image" value="#{photoBean.image}" />
 		
-		<!-- ##################################### -->
-		<!-- ##### INIT - TEST WITHOUT WEBCAM ##### -->
-		<!-- ##################################### -->
-		<div style="display: block">
-			<img src="../../images/comolatti.jpg" width="200" id="comolatti" />
-			<canvas id="myCanvas"></canvas>
-			<button type="button" id="antes" onclick="testCap()">Cap</button>
-			<p:commandButton id="postfdaasd" value="enviar" action="#{photoBean.saveImage()}" ajax="false" />
-			<script>
-				 function testCap(){
-					   var c=document.getElementById("myCanvas");
-					    var ctx=c.getContext("2d");
-					    //alert(c.toDataURL('image/png'));
-					    var img=document.getElementById("comolatti");
-					    ctx.drawImage(img,100,100);
-					    //alert(c.toDataURL('image/png'));
-					    $("#formImage\\:image").val(c.toDataURL('image/jpeg'));
-					 }
-				</script>
-		</div>
-		<!-- ##################################### -->
-		<!-- ##### END - TEST WITHOUT WEBCAM ##### -->
-		<!-- ##################################### -->
-
 		<div id="container-general">
 			<div id="contagem"></div>
-			<img src="../../images/loading.gif" width="200" class="loading" />
+			<h:graphicImage url="/resources/images/loading.gif" width="200" styleClass="loading"/>
 
 			<button type="button" id="take-snapshot" class="btn btn-success button-take-snapshot">TIRAR FOTO</button>
 			<div class="content-button">
@@ -131,9 +113,9 @@ video {
 
 	</h:form>
 	
-	<div style="width: 100px; position: absolute; bottom: 20px; right: 20px">
-			<button class="btn btn-default">Pular</button>
-	</div>
+
+	<a href="/rino/app/photo/endPhoto.xhtml" class="btn btn-default" style="text-decoration:none;width: 100px; position: absolute; bottom: 10px; right: 10px;font-weight:bold;font-size:16px;color:#000000">Pular</a>
+
 	
 	
 

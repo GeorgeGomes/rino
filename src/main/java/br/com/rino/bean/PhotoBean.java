@@ -16,6 +16,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 
 import br.com.rino.dao.ConfigGeneralDAO;
@@ -121,12 +122,15 @@ public class PhotoBean {
 
 	public void saveEmail(String nomeFoto) {
 		// this.editPhoto(nomeFoto);
+		HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		photoDAO.update(photo);
-		JSFUtil.redirect("http://localhost:8080/rino/app/photo/endPhoto.xhtml");
+		
+		JSFUtil.redirect("http://"+req.getServerName()+":"+req.getServerPort()+"/rino/app/photo/endPhoto.xhtml");
 	}
 
 	public void dontSaveEmail() {
-		JSFUtil.redirect("http://localhost:8080/rino/app/photo/endPhoto.xhtml");
+		HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		JSFUtil.redirect("http://"+req.getServerName()+":"+req.getServerPort()+"/rino/app/photo/endPhoto.xhtml");
 	}
 
 	public void saveImage() throws IOException {
@@ -146,12 +150,13 @@ public class PhotoBean {
 			photoDAO.insert(photo);
 
 			if (configPhoto.getOnline().equalsIgnoreCase("ONLINE")) {
-				String urlGallery = configPhoto.getLinkGallery() + photo.getNomeFoto() + "&type=button";
+				String urlGallery = configPhoto.getLinkGallery() + "/view/photo/" + photo.getNomeFoto() + "/publish";
 				transferOnline(photo);
 				refreshFacebook(urlGallery);
 				JSFUtil.redirect(urlGallery);
 			} else {
-				JSFUtil.redirect("http://localhost:8080/rino/app/photo/offlinePhoto.xhtml?file=" + photo.getNomeFoto());
+				HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+				JSFUtil.redirect("http://"+req.getServerName()+":"+req.getServerPort()+"/rino/app/photo/offlinePhoto.xhtml?file=" + photo.getNomeFoto());
 			}
 
 		} catch (Exception e) {

@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui">
    
 <h:head>
 <title>Facebook Inicialização</title>
@@ -19,7 +19,7 @@ body {
 	padding: 0px;
 	margin: 0px;
 	overflow: hidden;
-	background: url(/img/#{configPhotoBean.listConfigPhoto().get(0).nomeImagemAgradecimento}) no-repeat center center fixed;
+	background: url(/rino/uploads/images/#{configPhotoBean.listConfigPhoto().get(0).nomeImagemAgradecimento}) no-repeat center center fixed;
 	-webkit-background-size: cover;
   	-moz-background-size: cover;
   	-o-background-size: cover;
@@ -43,7 +43,7 @@ body {
 
 			if(type == "alone"){
 				setTimeout(function(){
-					window.location = "/rino/app/photo/initPhoto.xhtml";
+					window.location = "/rino/app/photo/takePhoto.xhtml";
 				}, #{configPhotoBean.listConfigPhoto().get(0).milisegundosEnd});
 			}else{
 				setTimeout(function(){

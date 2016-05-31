@@ -14,10 +14,10 @@
 
 	<h:outputScript library="primefaces" name="jquery/jquery.js"
 		target="head" />
-	<script src="../../js/bootstrap.min.js"></script>
+	<script src="/rino/resources/js/bootstrap.min.js"></script>
 
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
-	<link rel="stylesheet" href="../../css/carousel.css" />
+	<link rel="stylesheet" href="/rino/resources/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/rino/resources/css/carousel.css" />
 	<style>
 	html,body{
     margin:0;
@@ -56,7 +56,7 @@
 				<ui:repeat var="data" value="#{carouselBean.listCarousel()}"
 					varStatus="status">
 					<div class="item #{status.index == 0 ? 'active' : ''}">
-						<h:graphicImage url="#{'\\img\\'.concat(data.nomeImagem)}" styleClass="image"/>
+						<h:graphicImage url="/uploads/images/#{data.nomeImagem}" styleClass="image"/>
 					</div>
 				</ui:repeat>
 			</div>

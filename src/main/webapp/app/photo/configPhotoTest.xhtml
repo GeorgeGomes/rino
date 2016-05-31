@@ -99,24 +99,6 @@
 								<f:selectItem itemLabel="OFFLINE" itemValue="OFFLINE" />
 							</p:selectOneRadio>
 							<h:message for="onlineOffline" errorClass="text-danger" style="font-size:10px" />
-							<p:panel header="OFFLINE" style="margin:5px;text-transform:uppercase;">
-								<p:panel header="IMAGEM OFFLINE" style="margin:5px;text-transform:uppercase">
-									<p:outputPanel rendered="#{configPhotoBean.configPhoto.codConfigPhoto &gt; 0 &amp;&amp; (configPhotoBean.configPhoto.nomeImagemOffline == '' || configPhotoBean.configPhoto.nomeImagemOffline == null)}">
-										<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{configPhotoBean.handleFileUploadOffline}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png|GIF|PNG|JPEG)$/" />
-									</p:outputPanel>
-									<p:outputPanel rendered="#{configPhotoBean.configPhoto.nomeImagemOffline != '' &amp;&amp; configPhotoBean.configPhoto.nomeImagemOffline != null}">
-										<h:graphicImage url="/uploads/images/#{configPhotoBean.configPhoto.nomeImagemOffline}" width="50" />
-										<p:commandButton ajax="true" value="Excluir" action="#{configPhotoBean.deleteFileUploadOffline()}" update="formModalEdit messages" />
-									</p:outputPanel>
-									<p:outputPanel rendered="#{configPhotoBean.configPhoto.codConfigPhoto == 0}">
-										<p:outputLabel value="Salve a configuração para poder inserir uma imagem!" />
-									</p:outputPanel>
-								</p:panel>
-								<p:panel header="MENSAGEM OFFLINE" style="margin:5px;text-transform:uppercase">
-									<p:inputText id="mensagemOffline" required="true" style="width:100%" requiredMessage="Campo 'Mensagem Offline' é de preenchimento obrigatório" value="#{configPhotoBean.configPhoto.mensagemOffline}" />
-								<h:message for="mensagemOffline" errorClass="text-danger" style="font-size:10px" />
-								</p:panel>
-							</p:panel>
 						</p:panel>
 
 						<p:panel header="AGRADECIMENTO" style="margin:5px;text-transform:uppercase;">
@@ -143,7 +125,7 @@
 							<p:panel header="LINK GALERIA ONLINE" style="margin:5px;text-transform:uppercase;float:left;width:48%">
 								<p:inputText id="linkGallery" required="true" style="width:100%" requiredMessage="Campo 'Link Galeria' é de preenchimento obrigatório" value="#{configPhotoBean.configPhoto.linkGallery}" />
 								<h:message for="linkGallery" errorClass="text-danger" style="font-size:10px" />
-								<div style="font-size: 8px; text-transform: none">ex: http://www.rinomachine.com.br/rino-gallery</div>
+								<div style="font-size: 8px; text-transform: none">ex: http://www.rinomachine.com.br/rino-gallery/servlet/transfer</div>
 							</p:panel>
 
 							<p:panel header="LINK TRANSFERÊNCIA ONLINE" style="margin:5px;text-transform:uppercase;float:left;width:48%">
