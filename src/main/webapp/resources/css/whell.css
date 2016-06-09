@@ -1,6 +1,6 @@
 body {
 	background-size: 100% 100% !important;
-	overflow: hidden !important;
+	/*overflow: hidden !important;*/
 	background: url(../images/tela-fundo-01.jpg) no-repeat center center fixed !important;
 	-webkit-background-size: cover !important;
 	-moz-background-size: cover !important;
@@ -9,7 +9,7 @@ body {
 }
 
 .div-ganhou {
-	background-image: url(../images/ganhou_of.png);
+	background-image: url(/rino/resources/images/ganhou_of.png);
 	background-size: 280px 60px;
 	background-repeat: no-repeat;
 	width: 280px;
@@ -17,7 +17,7 @@ body {
 }
 
 .whell-logo {
-	background-image: url(../images/whell-logo.png);
+	background-image: url(/rino/resources/images/whell-logo.png);
 	background-size: 120px 120px;
 	background-repeat: no-repeat;
 	width: 120px;
@@ -30,7 +30,7 @@ body {
 }
 
 .whell {
-	background-image: url(../images/whell.png);
+	background-image: url(/rino/resources/images/whell.png);
 	background-size: 480px 480px;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -53,7 +53,7 @@ body {
 }
 
 .whell-static {
-	background-image: url(../images/whell-static.png);
+	background-image: url(/rino/resources/images/whell-static.png);
 	background-size: 600px 600px;
 	background-repeat: no-repeat;
 	width: 600px;
@@ -62,7 +62,7 @@ body {
 }
 
 .ponteira {
-	background-image: url(../images/ponteira.png);
+	background-image: url(/rino/resources/images/ponteira.png);
 	background-size: 80px 150px;
 	width: 80px;
 	height: 150px;
@@ -162,7 +162,7 @@ body {
 }
 
 .led-off-mini {
-	background-image: url(../images/led1-of.png);
+	background-image: url(/rino/resources/images/led1-of.png);
 	background-size: 30px 30px;
 	width: 30px;
 	height: 30px;
@@ -174,7 +174,7 @@ body {
 }
 
 .led {
-	background-image: url(../images/led1-of.png);
+	background-image: url(/rino/resources/images/led1-of.png);
 	background-size: 60px 60px;
 	width: 60px;
 	height: 60px;
@@ -184,7 +184,7 @@ body {
 }
 
 .led-on {
-	background-image: url(../images/led1-on.png);
+	background-image: url(/rino/resources/images/led1-on.png);
 	background-size: 60px 60px;
 	width: 60px;
 	height: 60px;
@@ -193,7 +193,7 @@ body {
 
 .audio {
 	position: absolute;
-	background-image: url(../images/audio-icon.png);
+	background-image: url(/rino/resources/images/audio-icon.png);
 	background-size: 100px 50px;
 	background-repeat: no-repeat;
 	width: 100px;
@@ -202,16 +202,21 @@ body {
 }
 
 .container-winner {
-	background-image: url(../images/janela.png);
+	background-image: url(/rino/resources/images/janela.png);
 	background-size: 360px 360px;
 	width: 360px;
 	height: 360px;
 	float: left;
-	margin-left: 200px;
+	right:50px;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 .container-winner-led-horizontal {
-	width: 340px;
+	width: 350px;
 	height: 30px;
 	padding-left: 16px;
 }

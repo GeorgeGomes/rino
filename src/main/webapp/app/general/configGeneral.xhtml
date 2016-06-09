@@ -34,14 +34,6 @@
 										<h:outputText value="#{data.portaSerial}"></h:outputText>
 									</p:column>
 
-									<p:column headerText="HOST (E-MAIL)">
-										<h:outputText value="#{data.emailHost}"></h:outputText>
-									</p:column>
-
-									<p:column headerText="REMETENTE (E-MAIL)">
-										<h:outputText value="#{data.emailHost}"></h:outputText>
-									</p:column>
-
 									<p:column headerText="">
 										<p:commandButton value="EDITAR" style="font-size:10px;font-weight:bold" action="#{configGeneralBean.editConfigGeneral(data.codConfig)}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" />
 										<p:commandButton value="EXCLUIR" style="font-size:10px;font-weight:bold" action="#{configGeneralBean.deleteConfigGeneral(data)}" ajax="true" update="form messages" />
@@ -62,45 +54,6 @@
 						<p:panel header="RXTX" style="margin:5px;text-transform:uppercase;">
 							<p:panel header="PORTA SERIAL" style="margin:5px;text-transform:uppercase;">
 								<p:inputText id="portaSerial" required="true" style="width:100%" requiredMessage="Campo 'Porta Serial' é de preenchimento obrigatório" value="#{configGeneralBean.configGeneral.portaSerial}" />
-							</p:panel>
-
-						</p:panel>
-
-						<p:panel header="E-MAIL" style="margin:5px;text-transform:uppercase;">
-							<p:panel header="HOST" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-								<p:inputText id="host" required="true" style="width:100%" requiredMessage="Campo 'Host' é de preenchimento obrigatório" value="#{configGeneralBean.configGeneral.emailHost}" />
-								<h:message for="host" errorClass="text-danger" style="font-size:10px" />
-								<div style="font-size: 8px;text-transform:none">ex: smtp.rinomachine.com.br</div>
-							</p:panel>
-
-							<p:panel header="PORTA" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-								<p:inputText id="port" required="true" style="width:100%" requiredMessage="Campo 'Host' é de preenchimento obrigatório" value="#{configGeneralBean.configGeneral.emailPort}" />
-								<h:message for="port" errorClass="text-danger" style="font-size:10px" />
-								<div style="font-size: 8px;text-transform:none">ex: 465</div>
-							</p:panel>
-
-							<div style="clear: both"></div>
-
-							<p:panel header="E-MAIL REMETENTE" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-								<p:inputText id="emailSender" required="true" style="width:100%" requiredMessage="Campo 'Host' é de preenchimento obrigatório" value="#{configGeneralBean.configGeneral.emailSender}" />
-								<h:message for="emailSender" errorClass="text-danger" style="font-size:10px" />
-							</p:panel>
-
-							<p:panel header="SENHA DO E-MAIL" style="margin:5px;text-transform:uppercase;float:left;width:48%">
-								<p:inputText id="emailPassword" required="true" style="width:100%" requiredMessage="Campo 'Host' é de preenchimento obrigatório" value="#{configGeneralBean.configGeneral.emailPassword}" />
-								<h:message for="emailPassword" errorClass="text-danger" style="font-size:10px" />
-							</p:panel>
-
-							<div style="clear: both"></div>
-
-							<p:panel header="ASSUNTO" style="margin:5px;text-transform:uppercase;">
-								<p:inputText id="emailSubject" required="true" style="width:100%" requiredMessage="Campo 'Host' é de preenchimento obrigatório" value="#{configGeneralBean.configGeneral.emailSubject}" />
-								<h:message for="emailSubject" errorClass="text-danger" style="font-size:10px" />
-							</p:panel>
-
-							<p:panel header="CONTEÚDO E-MAIL" style="margin:5px;text-transform:uppercase;">
-								<p:inputText id="emailBody" required="true" style="width:100%" requiredMessage="Campo 'Host' é de preenchimento obrigatório" value="#{configGeneralBean.configGeneral.emailBody}" />
-								<h:message for="emailBody" errorClass="text-danger" style="font-size:10px" />
 							</p:panel>
 
 						</p:panel>

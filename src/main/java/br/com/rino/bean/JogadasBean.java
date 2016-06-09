@@ -48,6 +48,11 @@ public class JogadasBean {
 		
 	}
 	
+	public void retirarPremio(Long codJogada){
+		Jogadas jogada = jogadasDAO.edit(codJogada);
+		jogadasDAO.delete(jogada);
+	}
+	
 	public Jogadas selecionarBrinde(){
 		Jogadas jogadas = null;
 		List<Jogadas> jogadasList = jogadasDAO.getList();
@@ -64,7 +69,5 @@ public class JogadasBean {
 	public List<Jogadas> listJogadas() {
 		return jogadasDAO.getList();
 	}
-	
-	
-	
+		
 }

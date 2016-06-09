@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:composite="http://xmlns.jcp.org/jsf/composite" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>ROLETA</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+	<script src="/rino/resources/js/bootstrap.min.js"></script>
+	<script src="/rino/resources/js/propeller.js"></script>
+	<script src="/rino/resources/js/whell.js"></script>
+	
+	<link rel="stylesheet" href="/rino/resources/css/whell.css" />
+	<link rel="stylesheet" href="/rino/resources/css/bootstrap.min.css" />
+</h:head>
+
+ <f:event listener="#{jogadasBean.retirarPremio(param['codJogada'])}" type="preRenderView" />
+
+<h:body>
+
+
+
+		<div class="container-winner" style="left: 0;right: 0;margin-left: auto;margin-right: auto;">
+	<div class="container-winner-led-horizontal">
+	<div data-id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	</div>
+	<div class="container-winner-led-middle">
+	<div id="led-winner-1" class="led-off-mini" style="margin-top:10px"></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	</div>
+	<div class="container-winner-content">
+	<div class="container-winner-ganhou" style="height:60px;width:280px"></div>
+	<div class="container-winner-produto"><img src="/rino/uploads/images/#{param['imgBrinde']}" width="140" style="display:block;margin:0 auto" /></div>
+	</div>
+	<div class="container-winner-led-middle">
+	<div id="led-winner-1" class="led-off-mini" style="margin-top:10px"></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="container-winner-led-horizontal">
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	<div id="led-winner-1" class="led-off-mini" style=""></div>
+	</div>
+	</div>
+	
+	
+	<script> 
+	powerLed("led-inner-1",2000)
+	powerLed("led-inner-2",2000) 
+	powerLed("led-inner-3",2000)
+	powerLed("led-inner-4",2000) 
+	powerLed("led-inner-5",2000)
+	powerLed("led-inner-6",2000) 
+	powerLed("led-inner-7",2000)
+	powerLed("led-inner-8",2000) 
+	powerLed("led-inner-9",2000)
+	powerLed("led-inner-10",2000) 
+	powerLed("led-inner-11",2000)
+	powerLed("led-inner-12",2000) 
+	powerLed("led-inner-13",2000)
+	powerLed("led-inner-14",2000) 
+	powerLed("led-inner-15",2000)
+	powerLed("led-inner-16",2000) 
+	powerLed("led-outer-1",1000)
+	powerLed("led-outer-2",1000) 
+	powerLed("led-outer-3",1000)
+	powerLed("led-outer-4",1000) 
+	powerLed("led-outer-5",1000)
+	powerLed("led-outer-6",1000) 
+	powerLed("led-outer-7",1000)
+	powerLed("led-outer-8",1000) 
+	powerLed("led-outer-9",1000)
+	powerLed("led-outer-10",1000) 
+	powerLed("led-outer-11",1000)
+	powerLed("led-outer-12",1000) 
+	
+	function powerGanhou(element, time){ 
+		setInterval(function() {
+			if($('.'+element).css("background-image").indexOf("ganhou_of.png") != -1){
+				$('.'+element).css("background-image","url(/rino/resources/images/ganhou_on.png)");
+			}else{
+				$('.'+element).css({'background-image':'url(/rino/resources/images/ganhou_of.png)'}); 
+			}
+		},time); 
+	} 
+	
+	function powerLedPremio(element, time){
+		setInterval(function() {
+			if($('.'+element).css("background-image").indexOf("led1-of.png") != -1){ 
+				$('.'+element).css("background-image","url(/rino/resources/images/led1-on.png)");
+			}else{
+				$('.'+element).css({'background-image':'url(/rino/resources/images/led1-of.png)'}); 
+			}
+		},time); 
+	} 
+	
+	function powerLed(element, time){ 
+		setInterval(function() {
+			if($('#'+element).css("background-image").indexOf("led1-of.png") != -1){ 
+				$('#'+element).css("background-image","url(/rino/resources/images/led1-on.png)");
+			}else{
+				$('#'+element).css({'background-image':'url(/rino/resources/images/led1-of.png)'}); 
+			}
+		},time); 
+	} 
+
+
+	powerLedPremio("led-off-mini", 1000);
+	$('.container-winner-ganhou').html('<div class="div-ganhou"></div>'); 
+	powerGanhou("div-ganhou", 500);
+	</script>	
+	
+	
+	
+		<script>
+// 			var type = "#{utilBean.getSessionObj('type')}";
+
+// 			if(type == "alone"){
+// 				setTimeout(function(){
+// 					window.location = "/rino/app/whell/whell.xhtml";
+// 				}, 5000);
+// 			}else{
+// 				setTimeout(function(){
+// 					window.location = "/rino/app/sequence/sequence.xhtml";
+// 				}, 5000);
+// 			}
+		</script>
+	
+
+</h:body>
+</html>

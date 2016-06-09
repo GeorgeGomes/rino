@@ -25,24 +25,6 @@ public class ConfigGeneral implements Serializable {
 	
 	@Column(name="porta_serial")
 	private String portaSerial;
-	
-	@Column(name="email_host")
-	private String emailHost;
-	
-	@Column(name="email_port")
-	private String emailPort;
-	
-	@Column(name="email_sender")
-	private String emailSender;
-	
-	@Column(name="email_password")
-	private String emailPassword;
-	
-	@Column(name="email_subject")
-	private String emailSubject;
-	
-	@Column(name="email_body")
-	private String emailBody;
 
 	public Long getCodConfig() {
 		return codConfig;
@@ -60,52 +42,4 @@ public class ConfigGeneral implements Serializable {
 		this.portaSerial = portaSerial;
 	}
 
-	public String getEmailHost() {
-		return emailHost;
-	}
-
-	public void setEmailHost(String emailHost) {
-		this.emailHost = emailHost;
-	}
-
-	public String getEmailPort() {
-		return emailPort;
-	}
-
-	public void setEmailPort(String emailPort) {
-		this.emailPort = emailPort;
-	}
-
-	public String getEmailSender() {
-		return emailSender;
-	}
-
-	public void setEmailSender(String emailSender) {
-		this.emailSender = emailSender;
-	}
-
-	public String getEmailPassword() {
-		return emailPassword;
-	}
-
-	public void setEmailPassword(String emailPassword) {
-		this.emailPassword = emailPassword;
-	}
-
-	public String getEmailSubject() {
-		return emailSubject;
-	}
-
-	public void setEmailSubject(String emailSubject) {
-		this.emailSubject = emailSubject;
-	}
-
-	public String getEmailBody() {
-		return emailBody;
-	}
-
-	public void setEmailBody(String emailBody) {
-		this.emailBody = emailBody;
-	}
-	
 }

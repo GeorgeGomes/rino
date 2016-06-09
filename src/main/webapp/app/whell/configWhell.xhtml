@@ -24,8 +24,8 @@
 
 								<p:commandButton value="Nova Fatia" style="float:left;margin-bottom:4px;font-size:14px;font-weight:bold" action="#{whellBean.newWhell()}" ajax="true" update="modalEdit" oncomplete="PF('modalEdit').show();" disabled="#{whellBean.listWhell().size() == 8}" />
 
-								<p:commandButton value="Gerar Jogadas" style="float:right;margin-bottom:4px;font-size:14px;font-weight:bold" actionListener="#{jogadasBean.gerarJogadas()}" onclick="PF('growl').renderMessage({summary:'Jogadas', detail: 'Gerando as jogadas no servidor, isso pode demorar um pouquinho...', severity: 1});" disabled="#{whellBean.listWhell().size() &lt; 8}" update="messages">
-									<p:confirm header="Confirmation" message="Deseja gerar as jogadas?" icon="ui-icon-alert" />
+								<p:commandButton value="Gerar Jogadas" style="float:right;margin-bottom:4px;font-size:14px;font-weight:bold" action="#{jogadasBean.gerarJogadas()}" onclick="PF('growl').renderMessage({summary:'Jogadas', detail: 'Gerando as jogadas no servidor, isso pode demorar um pouquinho...', severity: 1});" disabled="#{whellBean.listWhell().size() &lt; 8}" update="messages">
+									<p:confirm header="Gerar Jogadas" message="Deseja gerar as jogadas?" icon="ui-icon-alert" />
 								</p:commandButton>
 
 								<p:commandButton value="Ver Jogadas" style="float:right;margin-bottom:4px;font-size:14px;font-weight:bold" ajax="false" action="#{utilBean.redirect('/rino/app/whell/configJogadas.xhtml')}" disabled="#{whellBean.listWhell().size() &lt; 8}" />
@@ -57,7 +57,7 @@
 									</p:column>
 
 									<p:column headerText="Imagem">
-										<h:graphicImage url="/uploads/images/#{data.nomeImagem}" width="50" />
+										<h:graphicImage url="/uploads/images/#{data.nomeImagem}" width="50" alt="imagem"/>
 									</p:column>
 
 									<p:column headerText="Color">
@@ -129,19 +129,19 @@
 						</p:panel>
 
 						<p:panel header="VITORIAS" style="margin:5px;text-transform:uppercase;">
-							<h:outputLabel value="#{whellBean.whell.vitorias}" />
+							<h:outputText value="#{whellBean.whell.vitorias}" />
 						</p:panel>
 
 						<p:panel header="IMAGEM PRÊMIO" style="margin:5px;text-transform:uppercase">
 							<p:outputPanel rendered="#{whellBean.whell.codWhell > 0 &amp;&amp; (whellBean.whell.nomeImagem == '' || whellBean.whell.nomeImagem == null)}">
-								<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{whellBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+								<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{whellBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="999999999999" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 							</p:outputPanel>
 							<p:outputPanel rendered="#{whellBean.whell.nomeImagem != '' &amp;&amp; whellBean.whell.nomeImagem != null}">
-								<h:graphicImage url="/uploads/images/#{whellBean.whell.nomeImagem}" width="50" />
+								<h:graphicImage url="/uploads/images/#{whellBean.whell.nomeImagem}" width="50" alt="imagem"/>
 								<p:commandButton ajax="true" value="Excluir" action="#{whellBean.deleteFileUpload()}" update="formModalEdit messages" />
 							</p:outputPanel>
 							<p:outputPanel rendered="#{whellBean.whell.codWhell == 0}">
-								<p:outputLabel value="Salve a configuração para poder inserir uma imagem!" />
+								<h:outputText value="Salve a configuração para poder inserir uma imagem!" />
 							</p:outputPanel>
 						</p:panel>
 

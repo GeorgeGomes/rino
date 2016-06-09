@@ -1,25 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:composite="http://java.sun.com/jsf/composite"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:composite="http://xmlns.jcp.org/jsf/composite" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Configurações das Jogadas</title>
-		<h:outputScript library="primefaces" name="jquery/jquery.js"
-		target="head" />
-	<script src="../../js/bootstrap.min.js"></script>
 
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
 </h:head>
 <h:body>
-	<p:growl id="messages" showDetail="true" life="10000"
-		showSummary="false" />
-
-
+	<ui:composition template="/app/template/layout.xhtml">
+		<ui:param name="title" value="CONFIGURAÇÕES DAS JOGADAS" />
+		<ui:define name="content">
+		
 	<h:form id="form">
 
 
@@ -27,8 +16,10 @@
 			style="width: 90%; margin: 30px auto 0 auto">
 			<div class="panel-heading"
 				style="font-size: 20px; text-transform: uppercase; font-weight: bold">
-				Configurações das Jogadas<a href="/rino" style="float: right"><img
-					src="../../images/red-home-icon.png" /></a>
+				CONFIGURAÇÕES DAS JOGADAS
+				<a href="/rino" style="float: right">
+					<h:graphicImage url="/resources/images/red-home-icon.png" alt="home"/>
+				</a>
 				<div style="clear: both"></div>
 			</div>
 			<div class="panel-body">
@@ -64,8 +55,7 @@
 							</p:column>
 
 							<p:column headerText="Imagem">
-								<h:graphicImage url="#{'\\img\\'.concat(data.nomeImagem)}"
-									width="50" />
+									<h:graphicImage url="/uploads/images/#{data.nomeImagem}" width="50" alt="imagem"/>
 							</p:column>
 
 							<f:facet name="footer">
@@ -80,6 +70,7 @@
 
 	</h:form>
 
-
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>

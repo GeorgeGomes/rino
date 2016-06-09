@@ -43,7 +43,7 @@
 									</p:column>
 
 									<p:column headerText="IMG AGRADECIMENTO">
-										<h:graphicImage url="/uploads/images/#{data.nomeImagemAgradecimento}" width="50" />
+										<h:graphicImage url="/uploads/images/#{data.nomeImagemAgradecimento}" width="50" alt="imagem"/>
 									</p:column>
 
 									<p:column headerText="TEMPO AGRADECIMENTO">
@@ -102,14 +102,14 @@
 							<p:panel header="OFFLINE" style="margin:5px;text-transform:uppercase;">
 								<p:panel header="IMAGEM OFFLINE" style="margin:5px;text-transform:uppercase">
 									<p:outputPanel rendered="#{configPhotoBean.configPhoto.codConfigPhoto &gt; 0 &amp;&amp; (configPhotoBean.configPhoto.nomeImagemOffline == '' || configPhotoBean.configPhoto.nomeImagemOffline == null)}">
-										<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{configPhotoBean.handleFileUploadOffline}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png|GIF|PNG|JPEG)$/" />
+										<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{configPhotoBean.handleFileUploadOffline}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="999999999999" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png|GIF|PNG|JPEG)$/" />
 									</p:outputPanel>
 									<p:outputPanel rendered="#{configPhotoBean.configPhoto.nomeImagemOffline != '' &amp;&amp; configPhotoBean.configPhoto.nomeImagemOffline != null}">
-										<h:graphicImage url="/uploads/images/#{configPhotoBean.configPhoto.nomeImagemOffline}" width="50" />
+										<h:graphicImage url="/uploads/images/#{configPhotoBean.configPhoto.nomeImagemOffline}" width="50" alt="imagem"/>
 										<p:commandButton ajax="true" value="Excluir" action="#{configPhotoBean.deleteFileUploadOffline()}" update="formModalEdit messages" />
 									</p:outputPanel>
 									<p:outputPanel rendered="#{configPhotoBean.configPhoto.codConfigPhoto == 0}">
-										<p:outputLabel value="Salve a configuração para poder inserir uma imagem!" />
+										<h:outputText value="Salve a configuração para poder inserir uma imagem!" />
 									</p:outputPanel>
 								</p:panel>
 								<p:panel header="MENSAGEM OFFLINE" style="margin:5px;text-transform:uppercase">
@@ -122,14 +122,14 @@
 						<p:panel header="AGRADECIMENTO" style="margin:5px;text-transform:uppercase;">
 							<p:panel header="IMAGEM AGRADECIMENTO" style="margin:5px;text-transform:uppercase">
 								<p:outputPanel rendered="#{configPhotoBean.configPhoto.codConfigPhoto &gt; 0 &amp;&amp; (configPhotoBean.configPhoto.nomeImagemAgradecimento == '' || configPhotoBean.configPhoto.nomeImagemAgradecimento == null)}">
-									<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{configPhotoBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png|GIF|PNG|JPEG)$/" />
+									<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{configPhotoBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="999999999999" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png|GIF|PNG|JPEG)$/" />
 								</p:outputPanel>
 								<p:outputPanel rendered="#{configPhotoBean.configPhoto.nomeImagemAgradecimento != '' &amp;&amp; configPhotoBean.configPhoto.nomeImagemAgradecimento != null}">
-									<h:graphicImage url="/uploads/images/#{configPhotoBean.configPhoto.nomeImagemAgradecimento}" width="50" />
+									<h:graphicImage url="/uploads/images/#{configPhotoBean.configPhoto.nomeImagemAgradecimento}" width="50" alt="imagem"/>
 									<p:commandButton ajax="true" value="Excluir" action="#{configPhotoBean.deleteFileUpload()}" update="formModalEdit messages" />
 								</p:outputPanel>
 								<p:outputPanel rendered="#{configPhotoBean.configPhoto.codConfigPhoto == 0}">
-									<p:outputLabel value="Salve a configuração para poder inserir uma imagem!" />
+									<h:outputText value="Salve a configuração para poder inserir uma imagem!" />
 								</p:outputPanel>
 							</p:panel>
 

@@ -13,8 +13,7 @@
         <!-- ########## -->
         <!-- ADD COMMAND BELOW -->
         
-        <Context docBase="C:\Users\georgeg\Desktop\praizer" path="/praizer/images" useHttpOnly="true"/>
-		
+		<Context docBase="C:\rino\uploads\images" path="/rino/uploads/images" useHttpOnly="true"/>
 		<!-- ADD COMMAND ABOVE -->
         <!-- ########## -->
         <!-- ########## -->

@@ -51,7 +51,7 @@
 				<h:form id="formModalEdit" enctype="multipart/form-data">
 					<p:panel header="Imagem" style="margin:5px;text-transform:uppercase">
 						<p:outputPanel rendered="#{carouselBean.carousel.nomeImagem == '' || carouselBean.carousel.nomeImagem == null}">
-							<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{carouselBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+							<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{carouselBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="999999999999" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 						</p:outputPanel>
 						<p:outputPanel rendered="#{carouselBean.carousel.nomeImagem != '' &amp;&amp; carouselBean.carousel.nomeImagem != null}">
 							<h:graphicImage url="/uploads/images/#{carouselBean.carousel.nomeImagem}" width="50" alt="" />

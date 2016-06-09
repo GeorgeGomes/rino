@@ -7,15 +7,15 @@
 
 <h:head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<title>Roleta</title> 
+	<title>ROLETA</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
-	<script src="../../js/bootstrap.min.js"></script>
-	<script src="../../js/propeller.js"></script>
-	<script src="../../js/whell.js"></script>
+	<script src="/rino/resources/js/bootstrap.min.js"></script>
+	<script src="/rino/resources/js/propeller.js"></script>
+	<script src="/rino/resources/js/whell.js"></script>
 	
-	<link rel="stylesheet" href="../../css/whell.css" />
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/rino/resources/css/whell.css" />
+	<link rel="stylesheet" href="/rino/resources/css/bootstrap.min.css" />
 </h:head>
 <h:body>
 
@@ -23,7 +23,7 @@
 <ui:param value="#{jogadasBean.selecionarBrinde()}" name="brinde" var="brinde" />
 
 <h:panelGroup rendered="${brinde!=null}">
-
+<h:graphicImage value="/uploads/images/#{brinde.nomeImagem}" width="20"/>
         
 	<div class="pieContainer">
 	<div class="pieBackground"></div>
@@ -74,18 +74,18 @@
 	<div class="whell">
 	<div style="float:left;border:0px solid red;width:49%;height:100px">
 	
-	<ui:repeat var="data" value="#{whellBean.listWhell()}" varStatus="status">
-			<h:graphicImage url="#{'\\img\\'.concat(data.nomeImagem)}" styleClass="#{'img'.concat(status.index + 1)}"
-							width="50" rendered="#{status.index &lt;= 3}"/>
+	<ui:repeat var="data" value="#{whellBean.listWhellGroupOne()}" varStatus="status">
+			<h:graphicImage url="/uploads/images/#{data.nomeImagem}" styleClass="#{'img'.concat(status.index + 1)}"
+							width="50" />
 	</ui:repeat>
 	
 	</div>
 	<div
 		style="float:left;border:0px solid red;width:49%;width:49%;height:100px">
 		
-		<ui:repeat var="data" value="#{whellBean.listWhell()}" varStatus="status">
-			<h:graphicImage url="#{'\\img\\'.concat(data.nomeImagem)}" styleClass="#{'img'.concat(status.index + 1)}"
-							width="50" rendered="#{status.index &gt;= 4}"/>
+		<ui:repeat var="data" value="#{whellBean.listWhellGroupTwo()}" varStatus="status">
+			<h:graphicImage url="/uploads/images/#{data.nomeImagem}" styleClass="#{'img'.concat(status.index + 5)}"
+							width="50"/>
 	</ui:repeat>
 
 	</div>
@@ -231,7 +231,10 @@
 			retiraPremio("<h:outputText value="#{brinde.codJogadas}" />", "<h:outputText value="#{brinde.codRoleta}" />"); }, 
 			onRotate: function(){
 
-<ui:repeat var="data" value="#{whellBean.listWhell()}" varStatus="status" escape="true">
+<ui:repeat var="data" value="#{whellBean.listWhellGroupOne()}" varStatus="status" escape="true">
+	randomImageSelect(this.angle, #{data.anguloInicial}, #{data.anguloFinal}, "#{data.nomeImagem}");	
+	</ui:repeat>
+	<ui:repeat var="data" value="#{whellBean.listWhellGroupTwo()}" varStatus="status" escape="true">
 	randomImageSelect(this.angle, #{data.anguloInicial}, #{data.anguloFinal}, "#{data.nomeImagem}");	
 	</ui:repeat>
  
@@ -239,6 +242,9 @@
 	
 	function retiraPremio(codJogada, codRoleta){ 
 		console.log("chamou a função retiraPremio"); 
+		
+		console.log("codJogada: "+codJogada+", codRoleta: "+codRoleta);
+		
 		var imagemEscolhida = "<h:outputText value="#{brinde.nomeImagem}" />";
 
 		if(imagemEscolhida.indexOf("nao") == -1){
@@ -247,31 +253,35 @@
 		}
 
 		powerLedPremio("led-off-mini", 1000); 
-		$.ajax({ 
-			method: "POST", 
-			url: "/roleta/bin/retiraPremio.php", 
-			data: { 
-				cod_jogada: codJogada,
-				cod_roleta: codRoleta 
-				}, 
-			success: function(success){
-				console.log("sucesso"); 
-				setTimeout(function(){ 
-					location = "/roleta/obrigado.html"; 
-				},5000); 
-			}, 
-			error: function(error){
-				alert("erro"); 
-				console.log("erro"); 
-			} 
-		}) 
+
+		endWhell(codJogada, imagemEscolhida);
+		
+		
+// 		$.ajax({ 
+// 			method: "POST", 
+// 			url: "/roleta/bin/retiraPremio.php", 
+// 			data: { 
+// 				cod_jogada: codJogada,
+// 				cod_roleta: codRoleta 
+// 				}, 
+// 			success: function(success){
+// 				console.log("sucesso"); 
+// 				setTimeout(function(){ 
+// 					location = "/roleta/obrigado.html"; 
+// 				},5000); 
+// 			}, 
+// 			error: function(error){
+// 				alert("erro"); 
+// 				console.log("erro"); 
+// 			} 
+// 		}) 
 	} 
 	function powerGanhou(element, time){ 
 		setInterval(function() {
 			if($('.'+element).css("background-image").indexOf("ganhou_of.png") != -1){
-				$('.'+element).css("background-image","url(images/ganhou_on.png)");
+				$('.'+element).css("background-image","url(/rino/resources/images/ganhou_on.png)");
 			}else{
-				$('.'+element).css({'background-image':'url(images/ganhou_of.png)'}); 
+				$('.'+element).css({'background-image':'url(/rino/resources/images/ganhou_of.png)'}); 
 			}
 		},time); 
 	} 
@@ -279,9 +289,9 @@
 	function powerLedPremio(element, time){
 		setInterval(function() {
 			if($('.'+element).css("background-image").indexOf("led1-of.png") != -1){ 
-				$('.'+element).css("background-image","url(images/led1-on.png)");
+				$('.'+element).css("background-image","url(/rino/resources/images/led1-on.png)");
 			}else{
-				$('.'+element).css({'background-image':'url(images/led1-of.png)'}); 
+				$('.'+element).css({'background-image':'url(/rino/resources/images/led1-of.png)'}); 
 			}
 		},time); 
 	} 
@@ -289,9 +299,9 @@
 	function powerLed(element, time){ 
 		setInterval(function() {
 			if($('#'+element).css("background-image").indexOf("led1-of.png") != -1){ 
-				$('#'+element).css("background-image","url(images/led1-on.png)");
+				$('#'+element).css("background-image","url(/rino/resources/images/led1-on.png)");
 			}else{
-				$('#'+element).css({'background-image':'url(images/led1-of.png)'}); 
+				$('#'+element).css({'background-image':'url(/rino/resources/images/led1-of.png)'}); 
 			}
 		},time); 
 	} 

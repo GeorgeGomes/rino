@@ -39,7 +39,7 @@
 									</p:column>
 
 									<p:column headerText="Imagem">
-										<h:graphicImage url="/uploads/images/#{data.nomeImagem}" width="100" />
+										<h:graphicImage url="/uploads/images/#{data.nomeImagem}" width="100" alt="imagem"/>
 									</p:column>
 
 									<p:column headerText="">
@@ -69,14 +69,14 @@
 
 					<p:panel header="Imagem" style="margin:5px;text-transform:uppercase">
 						<p:outputPanel rendered="#{panelBean.panel.codPanel &gt; 0 &amp;&amp; (panelBean.panel.nomeImagem == '' || panelBean.panel.nomeImagem == null)}">
-							<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{panelBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+							<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{panelBean.handleFileUpload}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="999999999999" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 						</p:outputPanel>
 						<p:outputPanel rendered="#{panelBean.panel.nomeImagem != '' &amp;&amp; panelBean.panel.nomeImagem != null}">
-							<h:graphicImage url="/uploads/images/#{panelBean.panel.nomeImagem}" width="50" alt="" />
+							<h:graphicImage url="/uploads/images/#{panelBean.panel.nomeImagem}" width="50" alt="imagem" />
 							<p:commandButton ajax="true" value="Excluir" action="#{panelBean.deleteFileUpload()}" update="formModalEdit messages" />
 						</p:outputPanel>
 						<p:outputPanel rendered="#{panelBean.panel.codPanel == 0}">
-							<p:outputLabel value="Salve a configuração para poder inserir uma imagem!" />
+							<h:outputText value="Salve a configuração para poder inserir uma imagem!" />
 						</p:outputPanel>
 					</p:panel>
 
@@ -92,14 +92,14 @@
 
 					<p:panel header="Background do Painel" style="margin:5px;text-transform:uppercase">
 						<p:outputPanel rendered="#{panelBean.configPanel.codConfigPanel &gt; 0 &amp;&amp; (panelBean.configPanel.nomeImagemInit == '' || panelBean.configPanel.nomeImagemInit == null)}">
-							<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{panelBean.handleFileUploadInit}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+							<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{panelBean.handleFileUploadInit}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="999999999999" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 						</p:outputPanel>
 						<p:outputPanel rendered="#{panelBean.configPanel.nomeImagemInit != '' &amp;&amp; panelBean.configPanel.nomeImagemInit != null}">
-							<h:graphicImage url="/uploads/images/#{panelBean.configPanel.nomeImagemInit}" width="50" alt=""/>
+							<h:graphicImage url="/uploads/images/#{panelBean.configPanel.nomeImagemInit}" width="50" alt="imagem"/>
 							<p:commandButton ajax="true" value="Excluir" action="#{panelBean.deleteFileUploadInit()}" update="formModalConfig messages" />
 						</p:outputPanel>
 						<p:outputPanel rendered="#{panelBean.configPanel.codConfigPanel == 0}">
-							<p:outputLabel value="Salve a configuração para poder inserir uma imagem!" />
+							<h:outputText value="Salve a configuração para poder inserir uma imagem!" />
 						</p:outputPanel>
 					</p:panel>
 
@@ -113,14 +113,14 @@
 
 						<p:panel header="Background do Agradecimento" style="margin:2%;text-transform:uppercase">
 							<p:outputPanel rendered="#{panelBean.configPanel.codConfigPanel &gt; 0 &amp;&amp; (panelBean.configPanel.nomeImagemEnd == '' || panelBean.configPanel.nomeImagemEnd == null)}">
-								<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{panelBean.handleFileUploadEnd}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+								<p:fileUpload cancelLabel="Cancelar" label="Selecionar Arquivo" fileUploadListener="#{panelBean.handleFileUploadEnd}" mode="advanced" dragDropSupport="false" update="messages" sizeLimit="999999999999" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 							</p:outputPanel>
 							<p:outputPanel rendered="#{panelBean.configPanel.nomeImagemEnd != '' &amp;&amp; panelBean.configPanel.nomeImagemEnd != null}">
-								<h:graphicImage url="/uploads/images/#{panelBean.configPanel.nomeImagemEnd}" width="50" alt=""/>
+								<h:graphicImage url="/uploads/images/#{panelBean.configPanel.nomeImagemEnd}" width="50" alt="imagem"/>
 								<p:commandButton ajax="true" value="Excluir" action="#{panelBean.deleteFileUploadEnd()}" update="formModalConfig messages" />
 							</p:outputPanel>
 							<p:outputPanel rendered="#{panelBean.configPanel.codConfigPanel == 0}">
-								<p:outputLabel value="Salve a configuração para poder inserir uma imagem!" />
+								<h:outputText value="Salve a configuração para poder inserir uma imagem!" />
 							</p:outputPanel>
 						</p:panel>
 

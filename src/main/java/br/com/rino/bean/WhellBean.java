@@ -1,6 +1,7 @@
 package br.com.rino.bean;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,7 +12,8 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+
+import com.google.common.collect.Lists;
 
 import br.com.rino.dao.WhellDAO;
 import br.com.rino.entity.Whell;
@@ -60,7 +62,7 @@ public class WhellBean {
 			whellDAO.update(whell);
 
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
-					"Arquivo excluído com sucesso!");
+					"Arquivo excluï¿½do com sucesso!");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		} else {
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Erro ao deletar arquivo!");
@@ -101,7 +103,7 @@ public class WhellBean {
 				"Registro deletado com sucesso!");
 		context.addMessage("messages", message);
 	}
-
+	
 	public void saveJogadas(Whell whell) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		RequestContext request = RequestContext.getCurrentInstance();
@@ -138,6 +140,23 @@ public class WhellBean {
 
 	public List<Whell> listWhell() {
 		return whellDAO.getList();
+	}
+	
+	public List<Whell> listWhellGroupOne() {
+		List<Whell> bigList = whellDAO.getList();
+		List<List<Whell>> smallerLists = Lists.partition(bigList, 4);
+		
+		return smallerLists.get(0);
+	}
+	
+	public List<Whell> listWhellGroupTwo() {
+		List<Whell> bigList = whellDAO.getList();
+		List<List<Whell>> smallerLists = Lists.partition(bigList, 4);
+		
+		List<Whell> list = smallerLists.get(1);
+		Collections.reverse(list);
+		
+		return list;
 	}
 
 	public Whell getWhell() {
