@@ -17,13 +17,16 @@
 	<link rel="stylesheet" href="/rino/resources/css/whell.css" />
 	<link rel="stylesheet" href="/rino/resources/css/bootstrap.min.css" />
 </h:head>
+
+<f:event listener="#{jogadasBean.selecionarBrinde()}" type="preRenderView" />
+
 <h:body>
 
-
-<ui:param value="#{jogadasBean.selecionarBrinde()}" name="brinde" var="brinde" />
-
-<h:panelGroup rendered="${brinde!=null}">
-<h:graphicImage value="/uploads/images/#{brinde.nomeImagem}" width="20"/>
+<h:panelGroup rendered="${jogadasBean.jogadas!=null}">
+	<div style="background-color:#ffffff">
+		<div>Prêmio:<h:graphicImage value="/uploads/images/#{jogadasBean.jogadas.nomeImagem}" width="20"/></div>
+		<div>Angulo Inicial:<h:outputText value="#{jogadasBean.jogadas.anguloInicial}" />, Angulo Final<h:outputText value="#{jogadasBean.jogadas.anguloFinal}" /></div>
+	</div>
         
 	<div class="pieContainer">
 	<div class="pieBackground"></div>
@@ -225,10 +228,10 @@
 		inertia: 0.99, 
 		speed: 0, 
 		angle: 0, 
-		angleInit: <h:outputText value="#{brinde.anguloInicial}" />, 
-		angleEnd: <h:outputText value="#{brinde.anguloFinal}" />, 
+		angleInit: <h:outputText value="#{jogadasBean.jogadas.anguloInicial}" />, 
+		angleEnd: <h:outputText value="#{jogadasBean.jogadas.anguloFinal}" />, 
 		onStop: function(){
-			retiraPremio("<h:outputText value="#{brinde.codJogadas}" />", "<h:outputText value="#{brinde.codRoleta}" />"); }, 
+			retiraPremio("<h:outputText value="#{jogadasBean.jogadas.codJogadas}" />", "<h:outputText value="#{jogadasBean.jogadas.codRoleta}" />"); }, 
 			onRotate: function(){
 
 <ui:repeat var="data" value="#{whellBean.listWhellGroupOne()}" varStatus="status" escape="true">
@@ -241,11 +244,11 @@
 }}); 
 	
 	function retiraPremio(codJogada, codRoleta){ 
-		console.log("chamou a função retiraPremio"); 
+		//console.log("chamou a função retiraPremio"); 
 		
-		console.log("codJogada: "+codJogada+", codRoleta: "+codRoleta);
+		//console.log("codJogada: "+codJogada+", codRoleta: "+codRoleta);
 		
-		var imagemEscolhida = "<h:outputText value="#{brinde.nomeImagem}" />";
+		var imagemEscolhida = "<h:outputText value="#{jogadasBean.jogadas.nomeImagem}" />";
 
 		if(imagemEscolhida.indexOf("nao") == -1){
 			$('.container-winner-ganhou').html('<div class="div-ganhou"></div>'); 
@@ -312,7 +315,7 @@
 	
 	</script>
 </h:panelGroup>
-<h:panelGroup rendered="${brinde==null}">
+<h:panelGroup rendered="${jogadasBean.jogadas==null}">
 <div class="well well-sm" style="margin:100px auto 0 auto;font-size:25px;width:600px;text-align:center">
 	Ops, será necessário configurar as jogadas!
 </div>

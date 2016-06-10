@@ -247,13 +247,15 @@ var VELOCIDADE=0;
 
 
 
-           /* console.log("Angulo Atual:"+this._angle);
+            console.log("Angulo Atual:"+this._angle);
+            console.log("Angulo inicial: " + defaults.angleInit + ", Angulo Final: " + defaults.angleEnd);
             console.log("Angulo Stop:"+defaults.randomAngleStop);
-            console.log("velocidade:"+this.speed);*/
-
-
+            console.log("velocidade:"+this.speed);
+	
+		
             if(this.speed > 3.4 && this.speed < 3.6 && defaults.qtdeVoltas == 0){
                 this.speed = 3.599; 
+                
                 if(parseInt(defaults.randomAngleStop) >= (parseInt(this._angle)-3) && parseInt(defaults.randomAngleStop) <= (parseInt(this._angle)+3)){
                     var compensar = this._angle - defaults.randomAngleStop;
                     compensar = compensar / 100;

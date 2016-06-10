@@ -20,6 +20,7 @@ public class JogadasBean {
 	
 	private JogadasDAO jogadasDAO = new JogadasDAO();
 	private WhellDAO whellDAO = new WhellDAO();
+	private Jogadas jogadas;
 	
 	public void gerarJogadas(){
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -53,7 +54,7 @@ public class JogadasBean {
 		jogadasDAO.delete(jogada);
 	}
 	
-	public Jogadas selecionarBrinde(){
+	public void selecionarBrinde(){
 		Jogadas jogadas = null;
 		List<Jogadas> jogadasList = jogadasDAO.getList();
 		Integer totalJogadas = jogadasList.size();
@@ -62,12 +63,20 @@ public class JogadasBean {
 			jogadas = jogadasList.get(jogadaEscolhida - 1);
 		}
 		
-		return jogadas;
+		this.jogadas = jogadas;
 	}
 	
 
 	public List<Jogadas> listJogadas() {
 		return jogadasDAO.getList();
 	}
-		
+
+	public Jogadas getJogadas() {
+		return jogadas;
+	}
+
+	public void setJogadas(Jogadas jogadas) {
+		this.jogadas = jogadas;
+	}
+	
 }
