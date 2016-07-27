@@ -23,11 +23,7 @@
 <h:body>
 
 <h:panelGroup rendered="${jogadasBean.jogadas!=null}">
-	<div style="background-color:#ffffff">
-		<div>Prêmio:<h:graphicImage value="/uploads/images/#{jogadasBean.jogadas.nomeImagem}" width="20"/></div>
-		<div>Angulo Inicial:<h:outputText value="#{jogadasBean.jogadas.anguloInicial}" />, Angulo Final<h:outputText value="#{jogadasBean.jogadas.anguloFinal}" /></div>
-	</div>
-        
+ 
 	<div class="pieContainer">
 	<div class="pieBackground"></div>
 	<div id="pieSlice1" class="hold">
@@ -193,6 +189,11 @@
 
 
 	<script> 
+
+	console.log("Premio: #{jogadasBean.jogadas.anguloInicial} - #{jogadasBean.jogadas.anguloFinal}")
+	
+	
+	
 	powerLed("led-inner-1",2000)
 	powerLed("led-inner-2",2000) 
 	powerLed("led-inner-3",2000)
@@ -248,7 +249,7 @@
 		
 		//console.log("codJogada: "+codJogada+", codRoleta: "+codRoleta);
 		
-		var imagemEscolhida = "<h:outputText value="#{jogadasBean.jogadas.nomeImagem}" />";
+		var imagemEscolhida = "#{jogadasBean.jogadas.nomeImagem}";
 
 		if(imagemEscolhida.indexOf("nao") == -1){
 			$('.container-winner-ganhou').html('<div class="div-ganhou"></div>'); 

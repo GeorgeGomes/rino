@@ -72,9 +72,12 @@ public class ConfigPhotoBean {
 			configPhotoDAO.update(configPhoto);
 			
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
-					"Arquivo excluído com sucesso!");
+					"Arquivo excluÃ­do com sucesso!");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}else{
+			configPhoto.setNomeImagemAgradecimento("");
+			configPhotoDAO.update(configPhoto);
+			
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro",
 					"Erro ao deletar arquivo!");
 			FacesContext.getCurrentInstance().addMessage(null, message);
@@ -87,9 +90,12 @@ public class ConfigPhotoBean {
 			configPhotoDAO.update(configPhoto);
 			
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso",
-					"Arquivo excluído com sucesso!");
+					"Arquivo excluï¿½do com sucesso!");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}else{
+			configPhoto.setNomeImagemAgradecimento("");
+			configPhotoDAO.update(configPhoto);
+			
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro",
 					"Erro ao deletar arquivo!");
 			FacesContext.getCurrentInstance().addMessage(null, message);
